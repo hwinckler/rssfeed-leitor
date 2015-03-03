@@ -2,5 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib_feed4j/feed4j.jar"/>
+	<classpathentry kind="lib" path="lib_feed4j/nekohtml.jar"/>
+	<classpathentry kind="lib" path="lib_feed4j/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="lib_feed4j/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib_rome/rome-1.0.jar"/>
+	<classpathentry kind="lib" path="lib_rome/jdom-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib_feed4j/dom4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
