@@ -1,24 +1,26 @@
 package rssfeedleitor.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class Channel {
 
 	private Integer id;
-	private String name;
-	private String url;
+	private String title;
+	private String link;
 	private Calendar date;
 	private Calendar lastSynchronize;
 	private Boolean synchronize = Boolean.TRUE;
 	
 	private Category category;
-	private List<Feed> feeds;
+	private List<Feed> feeds = new ArrayList<Feed>();
 	
-	public Channel(String name, String url, Calendar date, Calendar lastSynchronize) {
+	public Channel(Category category, String title, String link, Calendar date, Calendar lastSynchronize) {
 		super();
-		this.name = name;
-		this.url = url;
+		this.category = category;
+		this.title = title;
+		this.link = link;
 		this.date = date;
 		this.lastSynchronize = lastSynchronize;
 	}
@@ -31,20 +33,20 @@ public class Channel {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getLink() {
+		return link;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 	public Calendar getDate() {

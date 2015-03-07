@@ -1,5 +1,6 @@
 package rssfeedleitor.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -7,16 +8,13 @@ public class Category {
 
 	private Integer id;
 	private String title;
-	private String description;
 	private Calendar date;
 	
-	private List<Channel> channels;
+	private List<Channel> channels = new ArrayList<Channel>();
 	
-	public Category(Integer id, String title, String description, Calendar date) {
+	public Category(String title, Calendar date) {
 		super();
-		this.id = id;
 		this.title = title;
-		this.description = description;
 		this.date = date;
 	}
 	public Integer getId() {
@@ -30,12 +28,6 @@ public class Category {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	public Calendar getDate() {
 		return date;

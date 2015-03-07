@@ -7,18 +7,15 @@ public class Feed {
 	private Integer id;
 	private Integer guid;
 	private String title;
-	private String description;
 	private Calendar pubDate;
 	private String link;
 	
 	private Channel channel;
 	
-	public Feed(Integer guid, String title, String description,
-			Calendar pubDate, String link) {
+	public Feed(Integer guid, String title, Calendar pubDate, String link) {
 		super();
 		this.guid = guid;
 		this.title = title;
-		this.description = description;
 		this.pubDate = pubDate;
 		this.link = link;
 	}
@@ -39,12 +36,6 @@ public class Feed {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	public Calendar getPubDate() {
 		return pubDate;
