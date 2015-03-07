@@ -1,5 +1,6 @@
 package tests;
 
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
@@ -12,10 +13,14 @@ public class RomeExample {
 
 	public static void main(String[] args) throws Exception{
 		
-		SyndFeedInput input = new SyndFeedInput();
-		SyndFeed feed = input.build(new XmlReader(new URL("http://www.ondetrabalhar.com/vagas.rss")));
+	    HttpURLConnection httpConnection = (HttpURLConnection) new URL("http://www.guj.com.br/noticias/rss").openConnection();
+	    httpConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
 		
-		System.out.println("title: " + feed.getTitle());
+		
+		SyndFeedInput input = new SyndFeedInput();
+		SyndFeed feed = input.build(new XmlReader(httpConnection.getInputStream()));
+		
+		System.out.println("feed: " + feed.getTitle());
 		
 		List<SyndEntryImpl> entries = feed.getEntries();
 		for (SyndEntryImpl object : entries) {
