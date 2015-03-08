@@ -24,6 +24,18 @@ public class Channel {
 		this.date = date;
 		this.lastSynchronize = lastSynchronize;
 	}
+	
+	
+
+	public Channel(String title, String link, Calendar date, Calendar lastSynchronize) {
+		super();
+		this.title = title;
+		this.link = link;
+		this.date = date;
+		this.lastSynchronize = lastSynchronize;
+	}
+
+
 
 	public Integer getId() {
 		return id;

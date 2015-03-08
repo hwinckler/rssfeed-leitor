@@ -9,7 +9,7 @@ import rssfeedleitor.model.Category;
 import rssfeedleitor.model.Channel;
 import rssfeedleitor.model.Feed;
 
-public class NewsFeedTest {
+public class FeedModelTest {
 
 	@Test
 	public void newFeed(){
