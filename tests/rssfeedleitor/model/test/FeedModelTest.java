@@ -1,4 +1,4 @@
-package rssfeedleitor.model.tests;
+package rssfeedleitor.model.test;
 
 import java.util.Calendar;
 

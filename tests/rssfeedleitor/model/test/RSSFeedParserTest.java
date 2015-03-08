@@ -1,4 +1,4 @@
-package rssfeedleitor.model.tests;
+package rssfeedleitor.model.test;
 
 import java.io.File;
 import java.io.FileInputStream;
