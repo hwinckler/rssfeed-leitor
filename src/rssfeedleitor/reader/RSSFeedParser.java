@@ -48,13 +48,11 @@ public class RSSFeedParser implements RSSFeed{
 					String localPart = event.asStartElement().getName().getLocalPart();
 
 					switch (localPart.toLowerCase()) {
-
 					case "item":
 						if(isFeedHeader){
-							channel = new Channel(title, link, date, date);
+							channel = new Channel(title, link, date);
 							isFeedHeader = false;
 						}
-
 						event = eventReader.nextEvent();
 						break;
 					case "title":
@@ -67,14 +65,14 @@ public class RSSFeedParser implements RSSFeed{
 						guid = Integer.valueOf(eventReader.nextEvent().asCharacters().getData());
 						break;	
 					case "pubdate":
-						Calendar f = Calendar.getInstance();
-						f.setTime(sdf.parse(eventReader.nextEvent().asCharacters().getData()));
-						pubDate = f;
+						pubDate = Calendar.getInstance();
+						pubDate.setTime(sdf.parse(eventReader.nextEvent().asCharacters().getData()));
 						break;			            
 					}
 
 				}
 				else if (event.isEndElement()) {
+					
 					if (event.asEndElement().getName().getLocalPart().equalsIgnoreCase("item")) {
 
 						Feed feed = new Feed(guid, title, pubDate, link);
