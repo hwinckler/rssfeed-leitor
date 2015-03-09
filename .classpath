@@ -9,5 +9,9 @@
 	<classpathentry kind="lib" path="lib/log4j-core-2.2.jar"/>
 	<classpathentry kind="lib" path="lib_weld/cdi-api.jar"/>
 	<classpathentry kind="lib" path="lib_weld/weld-se.jar"/>
+	<classpathentry kind="lib" path="lib_mybatis/mybatis-3.2.8.jar"/>
+	<classpathentry kind="lib" path="lib_hsqldb/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib_mysql/mysql-connector-java-5.1.34-bin.jar"/>
+	<classpathentry kind="lib" path="lib_mybatis/mybatis-cdi-1.0.0-beta1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

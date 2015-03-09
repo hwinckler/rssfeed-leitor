@@ -1,6 +1,7 @@
 package rssfeedleitor.model.test;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class FeedModelTest {
 	@Test
 	public void newFeed(){
 		
-		Category category = new Category("Java", Calendar.getInstance());
+		Category category = new Category("Java", new Date());
 		
 		Channel channel = new Channel(category, "GUJ Notícias", "http://guj.com.br/noticias/rss", Calendar.getInstance());
 		channel.getFeeds().add(new Feed(1, "Novo release do Junit", Calendar.getInstance(), "http//junit.org/release"));
