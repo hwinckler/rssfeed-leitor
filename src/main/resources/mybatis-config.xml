@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
 				<property name="driver" value="org.hsqldb.jdbcDriver"/>
-				<property name="url" value="jdbc:hsqldb:file:hsqldb_database/rssfeed-leitor-db;hsqldb.write_delay=false"/>
+				<property name="url" value="jdbc:hsqldb:file:hsqldb_database/rssfeed-leitor-db"/>
 				<property name="username" value="sa"/>
 				<property name="password" value=""/>
 			</dataSource>

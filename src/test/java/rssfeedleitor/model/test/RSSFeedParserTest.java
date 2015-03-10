@@ -31,7 +31,7 @@ public class RSSFeedParserTest {
 	@Test
 	public void parserXMLLocal() throws IOException, RSSFeedParserException{
 		
-		try(FileInputStream stream = new FileInputStream(new File("resources/rssfeed-local.xml"))){
+		try(FileInputStream stream = new FileInputStream(new File(getClass().getResource("/rssfeed-local.xml").getFile()))){
 			
 			Channel channel = rssFeed.parse(stream);
 			

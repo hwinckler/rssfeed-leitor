@@ -2,8 +2,8 @@ package rssfeedleitor.dao.impl;
 
 import javax.inject.Inject;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.mybatis.cdi.Mapper;
 
 import rssfeedleitor.dao.CategoryDAO;
