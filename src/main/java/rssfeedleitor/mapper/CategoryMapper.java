@@ -1,10 +1,12 @@
-package rssfeedleitor.model;
+package rssfeedleitor.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+
+import rssfeedleitor.model.Category;
 
 public interface CategoryMapper {
 

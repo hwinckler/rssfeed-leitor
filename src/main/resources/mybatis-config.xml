@@ -24,6 +24,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		</environment>		
 	</environments>
 	<mappers>
-		<mapper class="rssfeedleitor.model.CategoryMapper" />
+		<mapper class="rssfeedleitor.mapper.CategoryMapper" />
+		<mapper class="rssfeedleitor.mapper.ChannelMapper" />
+		<mapper class="rssfeedleitor.mapper.FeedMapper" />
 	</mappers>
 </configuration>

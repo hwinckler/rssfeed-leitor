@@ -1,7 +1,7 @@
 package rssfeedleitor.model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Channel {
@@ -9,13 +9,17 @@ public class Channel {
 	private Integer id;
 	private String title;
 	private String link;
-	private Calendar lastSynchronize;
+	private Date lastSynchronize;
 	private Boolean synchronize = Boolean.TRUE;
 	
 	private Category category;
 	private List<Feed> feeds = new ArrayList<Feed>();
 	
-	public Channel(Category category, String title, String link, Calendar lastSynchronize) {
+	public Channel() {
+
+	}
+	
+	public Channel(Category category, String title, String link, Date lastSynchronize) {
 		super();
 		this.category = category;
 		this.title = title;
@@ -25,7 +29,7 @@ public class Channel {
 	
 	
 
-	public Channel(String title, String link, Calendar lastSynchronize) {
+	public Channel(String title, String link, Date lastSynchronize) {
 		super();
 		this.title = title;
 		this.link = link;
@@ -58,11 +62,11 @@ public class Channel {
 		this.link = link;
 	}
 
-	public Calendar getLastSynchronize() {
+	public Date getLastSynchronize() {
 		return lastSynchronize;
 	}
 
-	public void setLastSynchronize(Calendar lastSynchronize) {
+	public void setLastSynchronize(Date lastSynchronize) {
 		this.lastSynchronize = lastSynchronize;
 	}
 

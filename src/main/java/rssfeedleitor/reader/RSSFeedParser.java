@@ -3,6 +3,7 @@ package rssfeedleitor.reader;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.xml.stream.XMLEventReader;
@@ -29,7 +30,6 @@ public class RSSFeedParser implements RSSFeed{
 		Channel channel = null;
 		XMLEventReader eventReader = null;
 		boolean isFeedHeader = true;
-		Calendar date = Calendar.getInstance();
 
 		try{
 
@@ -50,7 +50,7 @@ public class RSSFeedParser implements RSSFeed{
 					switch (localPart.toLowerCase()) {
 					case "item":
 						if(isFeedHeader){
-							channel = new Channel(title, link, date);
+							channel = new Channel(title, link, new Date());
 							isFeedHeader = false;
 						}
 						event = eventReader.nextEvent();
@@ -75,7 +75,7 @@ public class RSSFeedParser implements RSSFeed{
 					
 					if (event.asEndElement().getName().getLocalPart().equalsIgnoreCase("item")) {
 
-						Feed feed = new Feed(guid, title, pubDate, link);
+						Feed feed = new Feed(guid, title, pubDate.getTime(), link);
 						channel.getFeeds().add(feed);
 
 						event = eventReader.nextEvent();

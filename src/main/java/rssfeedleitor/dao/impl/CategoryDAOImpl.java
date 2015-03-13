@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.mybatis.cdi.Mapper;
 
 import rssfeedleitor.dao.CategoryDAO;
+import rssfeedleitor.mapper.CategoryMapper;
 import rssfeedleitor.model.Category;
-import rssfeedleitor.model.CategoryMapper;
 
 
 public class CategoryDAOImpl implements CategoryDAO{

@@ -1,18 +1,21 @@
 package rssfeedleitor.model;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class Feed {
 	
 	private Integer id;
 	private Integer guid;
 	private String title;
-	private Calendar pubDate;
+	private Date pubDate;
 	private String link;
 	
 	private Channel channel;
 	
-	public Feed(Integer guid, String title, Calendar pubDate, String link) {
+	public Feed() {
+	}
+	
+	public Feed(Integer guid, String title, Date pubDate, String link) {
 		super();
 		this.guid = guid;
 		this.title = title;
@@ -37,10 +40,10 @@ public class Feed {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Calendar getPubDate() {
+	public Date getPubDate() {
 		return pubDate;
 	}
-	public void setPubDate(Calendar pubDate) {
+	public void setPubDate(Date pubDate) {
 		this.pubDate = pubDate;
 	}
 	public String getLink() {
