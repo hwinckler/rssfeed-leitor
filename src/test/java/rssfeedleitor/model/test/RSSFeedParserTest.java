@@ -1,6 +1,5 @@
 package rssfeedleitor.model.test;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -31,7 +30,7 @@ public class RSSFeedParserTest {
 	@Test
 	public void parserXMLLocal() throws IOException, RSSFeedParserException{
 		
-		try(FileInputStream stream = new FileInputStream(new File(getClass().getResource("/rssfeed-local.xml").getFile()))){
+		try(FileInputStream stream = new FileInputStream(getClass().getResource("/rssfeed-local.xml").getFile())){
 			
 			Channel channel = rssFeed.parse(stream);
 			

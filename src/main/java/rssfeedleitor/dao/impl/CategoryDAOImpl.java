@@ -1,14 +1,17 @@
 package rssfeedleitor.dao.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mybatis.cdi.Mapper;
 
 import rssfeedleitor.dao.CategoryDAO;
 import rssfeedleitor.model.Category;
 import rssfeedleitor.model.CategoryMapper;
+
 
 public class CategoryDAOImpl implements CategoryDAO{
 
@@ -19,9 +22,20 @@ public class CategoryDAOImpl implements CategoryDAO{
 	private CategoryMapper categoryMapper;
 	
 	public void insert(Category category) {
-		logger.debug("inserindo...");
+		logger.debug("insert...");
 		categoryMapper.insert(category);
-		logger.debug("inserido!");
+	}
+
+	@Override
+	public List<Category> findAll() {
+		logger.debug("findAll...");
+		return categoryMapper.findAll();
+	}
+
+	@Override
+	public Category findById(Integer id) {
+		logger.debug("findById...");
+		return categoryMapper.findById(id);
 	}
 
 }

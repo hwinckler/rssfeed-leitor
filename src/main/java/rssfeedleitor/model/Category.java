@@ -12,6 +12,10 @@ public class Category {
 	
 	private List<Channel> channels = new ArrayList<Channel>();
 	
+	public Category() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Category(String title, Date date) {
 		super();
 		this.title = title;
