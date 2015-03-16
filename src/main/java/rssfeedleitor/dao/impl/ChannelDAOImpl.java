@@ -4,9 +4,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.mybatis.cdi.Mapper;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import rssfeedleitor.dao.ChannelDAO;
 import rssfeedleitor.mapper.ChannelMapper;
@@ -15,27 +16,36 @@ import rssfeedleitor.model.Channel;
 
 public class ChannelDAOImpl implements ChannelDAO{
 
-	private static final Logger logger = LogManager.getLogger(ChannelDAOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ChannelDAOImpl.class);
 	
 	@Inject 
-	@Mapper
-	private ChannelMapper channelMapper;
+	private SqlSessionFactory sqlSessionFactory;
 	
 	public void insert(Channel channel) {
 		logger.debug("insert...");
-		channelMapper.insert(channel);
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
+			channelMapper.insert(channel);
+			session.commit();
+		}
 	}
 
 	@Override
 	public List<Channel> findAll() {
 		logger.debug("findAll...");
-		return channelMapper.findAll();
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
+			return channelMapper.findAll();
+		}
 	}
 
 	@Override
 	public Channel findById(Integer id) {
 		logger.debug("findById...");
-		return channelMapper.findById(id);
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
+			return channelMapper.findById(id);
+		}
 	}
 
 }

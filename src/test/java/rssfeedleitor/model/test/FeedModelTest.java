@@ -17,10 +17,9 @@ public class FeedModelTest {
 		Category category = new Category("Java", new Date());
 		
 		Channel channel = new Channel(category, "GUJ Notícias", "http://guj.com.br/noticias/rss", new Date());
-		channel.getFeeds().add(new Feed(1, "Novo release do Junit",new Date(), "http//junit.org/release"));
+		channel.getFeeds().add(new Feed(channel, 1, "Novo release do Junit",new Date(), "http//junit.org/release"));
 		
-		category.getChannels().add(channel);
-		
+	
 		Assert.assertEquals("Java", category.getChannels().get(0).getCategory().getTitle());
 		Assert.assertEquals("GUJ Notícias", category.getChannels().get(0).getTitle());
 		Assert.assertEquals("http://guj.com.br/noticias/rss", category.getChannels().get(0).getLink());

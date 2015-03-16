@@ -11,15 +11,15 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import rssfeedleitor.model.Channel;
 import rssfeedleitor.model.Feed;
 
 public class RSSFeedParser implements RSSFeed{
 
-	private static final Logger logger = LogManager.getLogger(RSSFeedParser.class);
+	private static final Logger logger = LoggerFactory.getLogger(RSSFeedParser.class);
 
 	private XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US);
@@ -75,7 +75,7 @@ public class RSSFeedParser implements RSSFeed{
 					
 					if (event.asEndElement().getName().getLocalPart().equalsIgnoreCase("item")) {
 
-						Feed feed = new Feed(guid, title, pubDate.getTime(), link);
+						Feed feed = new Feed(channel, guid, title, pubDate.getTime(), link);
 						channel.getFeeds().add(feed);
 
 						event = eventReader.nextEvent();
@@ -85,7 +85,7 @@ public class RSSFeedParser implements RSSFeed{
 			}
 		}
 		catch(Exception e){
-			logger.error(e);
+			logger.error("error", e);
 
 			throw new RSSFeedParserException(e);
 		}
@@ -94,7 +94,7 @@ public class RSSFeedParser implements RSSFeed{
 				try {
 					eventReader.close();
 				} catch (XMLStreamException e) {
-					logger.error(e);
+					logger.error("error", e);
 				}
 			}
 		}

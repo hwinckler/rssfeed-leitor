@@ -4,37 +4,35 @@ import java.io.FileInputStream;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import rssfeedleitor.dao.factory.SqlSessionFactoryProvider;
-import rssfeedleitor.dao.impl.CategoryDAOImpl;
 
-public class DBUnitLoad {
+public class DBUnitLoad{
 
-	private static final Logger logger = LogManager.getLogger(DBUnitLoad.class);
+	private static final Logger logger = LoggerFactory.getLogger(DBUnitLoad.class);
 	
 	public static SqlSessionFactory sessionFactory = new SqlSessionFactoryProvider().produceFactory();
-	
-	private static DatabaseConnection databaseConnection;
-	private static IDataSet idataSet;
-	private static SqlSession session;
+	private static IDataSet idataSet = null;
 	
 	public static void setUp(final String dataSet) throws Exception{
 		
 		logger.debug("setUp...");
 		
-		session = sessionFactory.openSession();
+		SqlSession session = sessionFactory.openSession();
 				
-		databaseConnection = new DatabaseConnection(session.getConnection());
-		
+		DatabaseConnection databaseConnection = new DatabaseConnection(session.getConnection());
+				
 		idataSet = new FlatXmlDataSetBuilder().build(new FileInputStream(DBUnitLoad.class.getResource(dataSet).getFile()));
 
         DatabaseOperation.INSERT.execute(databaseConnection, idataSet);
+        
+        session.close();
         
 	}
 	
@@ -42,6 +40,10 @@ public class DBUnitLoad {
 		
 		logger.debug("tearDown...");
 		
+		SqlSession session = sessionFactory.openSession();
+		
+		DatabaseConnection databaseConnection = new DatabaseConnection(session.getConnection());	
+						
         DatabaseOperation.TRUNCATE_TABLE.execute(databaseConnection, idataSet);
         
         session.close();

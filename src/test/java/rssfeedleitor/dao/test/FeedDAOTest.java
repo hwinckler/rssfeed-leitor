@@ -12,7 +12,9 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import rssfeedleitor.dao.ChannelDAO;
 import rssfeedleitor.dao.FeedDAO;
+import rssfeedleitor.model.Channel;
 import rssfeedleitor.model.Feed;
 import dbunit.dataset.load.DBUnitLoad;
 
@@ -20,8 +22,11 @@ public class FeedDAOTest  extends DBUnitLoad{
 
 	@Inject
 	static FeedDAO feedDAO;
-		
-	final static String dataSet = "/dao/test/FeedDataset.xml";
+
+	@Inject
+	static ChannelDAO channelDAO;
+	
+	final static String dataSet = "/FeedDataset.xml";
 	
 	@BeforeClass
 	public static void init() throws Exception {
@@ -31,15 +36,24 @@ public class FeedDAOTest  extends DBUnitLoad{
 		WeldContainer container = weld.initialize();
 		
 		feedDAO = container.instance().select(FeedDAO.class).get();
+		channelDAO = container.instance().select(ChannelDAO.class).get();
 	}
 	
 	@Test
 	public void addFeed(){
 		
-		Feed feed1 = new Feed(1, "feed1", new Date(), "http://feed1.com");
-		Feed feed2 = new Feed(2, "feed2", new Date(), "http://feed3.com");
-		Feed feed3 = new Feed(3, "feed3", new Date(), "http://feed3.com");
-		Feed feed4 = new Feed(4, "feed4", new Date(), "http://feed4.com");
+		Channel channel1 = channelDAO.findById(1);
+		
+		Feed feed1 = new Feed(channel1, 1, "Nova versão do JUnit", new Date(), "http://feed1.com");
+		Feed feed2 = new Feed(channel1, 2, "CDI compatível com MyBatis", new Date(), "http://feed3.com");
+		
+		Channel channel2 = channelDAO.findById(2);
+		
+		Feed feed3 = new Feed(channel2, 3, "Tutorial de BootStrap com MyBatis", new Date(), "http://feed3.com");
+		
+		Channel channel3 = channelDAO.findById(3);
+		
+		Feed feed4 = new Feed(channel3, 4, "Entrevista com Kent Beck sobre Junit e TDD", new Date(), "http://feed4.com");
 
 		feedDAO.insert(feed1);
 		feedDAO.insert(feed2);
@@ -60,7 +74,20 @@ public class FeedDAOTest  extends DBUnitLoad{
 		Integer id = 4;
 		Feed feed = feedDAO.findById(id);
 		
-		Assert.assertEquals("feed4", feed.getTitle());
+		Assert.assertEquals("Entrevista com Kent Beck sobre Junit e TDD", feed.getTitle());
+	}
+	
+	@Test
+	public void findByIdWithChannel(){
+		Integer id = 4;
+		Feed feed = feedDAO.findById(id);
+		
+		Assert.assertEquals("Entrevista com Kent Beck sobre Junit e TDD", feed.getTitle());
+		
+		Assert.assertEquals("Agile News", feed.getChannel().getTitle());
+		
+		Assert.assertEquals("Agile e TDD", feed.getChannel().getCategory().getTitle());
+		
 	}
 	
 	@AfterClass

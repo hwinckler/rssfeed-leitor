@@ -15,13 +15,15 @@ public class Feed {
 	public Feed() {
 	}
 	
-	public Feed(Integer guid, String title, Date pubDate, String link) {
+	public Feed(Channel channel, Integer guid, String title, Date pubDate, String link) {
 		super();
 		this.guid = guid;
 		this.title = title;
 		this.pubDate = pubDate;
 		this.link = link;
+		this.channel = channel;
 	}
+	
 	public Integer getId() {
 		return id;
 	}

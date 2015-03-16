@@ -10,12 +10,12 @@ import javax.enterprise.inject.Produces;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SqlSessionFactoryProvider {
 
-	private static final Logger logger = LogManager.getLogger(SqlSessionFactoryProvider.class);
+	private static final Logger logger = LoggerFactory.getLogger(SqlSessionFactoryProvider.class);
 
 	private SqlSessionFactory sqlSessionFactory;
 
@@ -38,9 +38,9 @@ public class SqlSessionFactoryProvider {
 		}
 
 		catch (FileNotFoundException e) {
-			logger.error(e);
+			logger.error("error", e);
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("error", e);
 		}
 		
 		return sqlSessionFactory;

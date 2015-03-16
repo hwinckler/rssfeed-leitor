@@ -21,7 +21,7 @@ public class CategoryDAOTest extends DBUnitLoad {
 	@Inject
 	static CategoryDAO categoryDAO;
 		
-	final static String dataSet = "/dao/test/CategoriaDataset.xml";
+	final static String dataSet = "/CategoriaDataset.xml";
 	
 	@BeforeClass
 	public static void init() throws Exception {
@@ -36,14 +36,8 @@ public class CategoryDAOTest extends DBUnitLoad {
 	@Test
 	public void addCategory(){
 		
-		Category category1 = new Category("Java", new Date());
-		Category category2 = new Category("Tecnologias", new Date());
-		Category category3 = new Category("Agile e TDD", new Date());
-		
+		Category category1 = new Category("Outros", new Date());
 		categoryDAO.insert(category1);
-		categoryDAO.insert(category2);
-		categoryDAO.insert(category3);
-		
 	}
 	
 	@Test
@@ -51,15 +45,17 @@ public class CategoryDAOTest extends DBUnitLoad {
 		
 		List<Category> categories = categoryDAO.findAll();
 		
-		Assert.assertEquals(3, categories.size());
+		Assert.assertEquals(4, categories.size());
 	}
 	
 	@Test
 	public void findById(){
-		Integer id = 3;
+		Integer id = 4;
 		Category category = categoryDAO.findById(id);
 		
-		Assert.assertEquals("Agile e TDD", category.getTitle());
+		Assert.assertEquals("Outros", category.getTitle());
+		
+		Assert.assertEquals(0, category.getChannels().size());
 	}
 	
 	@AfterClass

@@ -12,7 +12,9 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import rssfeedleitor.dao.CategoryDAO;
 import rssfeedleitor.dao.ChannelDAO;
+import rssfeedleitor.model.Category;
 import rssfeedleitor.model.Channel;
 import dbunit.dataset.load.DBUnitLoad;
 
@@ -20,8 +22,11 @@ public class ChannelDAOTest  extends DBUnitLoad{
 
 	@Inject
 	static ChannelDAO channelDAO;
+	
+	@Inject
+	static CategoryDAO categoryDAO;
 		
-	final static String dataSet = "/dao/test/ChannelDataset.xml";
+	final static String dataSet = "/ChannelDataset.xml";
 	
 	@BeforeClass
 	public static void init() throws Exception {
@@ -31,13 +36,19 @@ public class ChannelDAOTest  extends DBUnitLoad{
 		WeldContainer container = weld.initialize();
 		
 		channelDAO = container.instance().select(ChannelDAO.class).get();
+		categoryDAO = container.instance().select(CategoryDAO.class).get();
 	}
 	
 	@Test
 	public void addChannel(){
 		
-		Channel channel1 = new Channel("channel1", "http://channel1.com", new Date());
-		Channel channel2 = new Channel("channel2", "http://channel1.com", new Date());
+		Integer id = 1;
+		Category category = categoryDAO.findById(id);
+		
+		Assert.assertEquals("Java", category.getTitle());
+		
+		Channel channel1 = new Channel(category, "channel1", "http://channel1.com", new Date());
+		Channel channel2 = new Channel(category, "channel2", "http://channel2.com", new Date());
 	
 		channelDAO.insert(channel1);
 		channelDAO.insert(channel2);
@@ -57,6 +68,21 @@ public class ChannelDAOTest  extends DBUnitLoad{
 		Channel channel = channelDAO.findById(id);
 		
 		Assert.assertEquals("channel2", channel.getTitle());
+		
+		Assert.assertEquals("Java", channel.getCategory().getTitle());
+	}
+	
+	@Test
+	public void findCategoryByIdWithChannels(){
+		Integer id = 1;
+		Category category = categoryDAO.findById(id);
+		
+		Assert.assertEquals("Java", category.getTitle());
+		
+		Assert.assertEquals(2, category.getChannels().size());
+		
+		Assert.assertEquals("channel1", category.getChannels().get(0).getTitle());
+		Assert.assertEquals("channel2", category.getChannels().get(1).getTitle());
 	}
 	
 	@AfterClass
