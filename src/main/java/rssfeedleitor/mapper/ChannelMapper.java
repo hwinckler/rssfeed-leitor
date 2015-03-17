@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Select;
 
 import rssfeedleitor.model.Category;
 import rssfeedleitor.model.Channel;
+import rssfeedleitor.model.Feed;
 
 public interface ChannelMapper {
 
@@ -29,10 +30,15 @@ public interface ChannelMapper {
 			@Result(property="lastSynchronize", column="lastSynchronize"),
 			@Result(property="synchronize", column="synchronize"),
             @Result(property="category", javaType=Category.class, column="category_id",
-                   many=@Many(select="getCategory"))
+                   many=@Many(select="getCategory")),
+            @Result(property="feeds", javaType=List.class, column="id",
+            		many=@Many(select="getFeeds"))
             })	
 	public Channel findById(Integer id);
 	
 	@Select("SELECT * FROM category where id = #{id}")
 	public Category getCategory(Integer id);
+	
+	@Select("SELECT * FROM feed where channel_id = #{id}")
+	public List<Feed> getFeeds(Integer id);
 }

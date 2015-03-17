@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Category {
 
+	public final static String DEFAULT = "Default";
+	
 	private Integer id;
 	private String title;
 	private Date date;
@@ -46,6 +48,10 @@ public class Category {
 	
 	public void setChannels(List<Channel> channels) {
 		this.channels = channels;
+	}
+	
+	public static Category newDefault(){
+		return new Category(Category.DEFAULT, new Date());
 	}
 	
 }
