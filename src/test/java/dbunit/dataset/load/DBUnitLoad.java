@@ -17,7 +17,7 @@ public class DBUnitLoad{
 
 	private static final Logger logger = LoggerFactory.getLogger(DBUnitLoad.class);
 	
-	public static SqlSessionFactory sessionFactory = new SqlSessionFactoryProvider().produceFactory();
+	public static SqlSessionFactory sessionFactory = new SqlSessionFactoryProvider().get();
 	private static IDataSet idataSet = null;
 	
 	public static void setUp(final String dataSet) throws Exception{

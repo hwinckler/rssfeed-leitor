@@ -27,22 +27,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<version>1.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.weld.se</groupId>
-			<artifactId>weld-se</artifactId>
-			<version>2.2.9.Final</version>
-		</dependency>
-
-
-
-
-
-		<dependency>
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
 			<version>2.5.0</version>
@@ -61,7 +45,11 @@
 			<version>1.5.10</version>
 		</dependency>
 
-
+<dependency>
+	<groupId>com.google.inject.extensions</groupId>
+	<artifactId>guice-servlet</artifactId>
+	<version>3.0</version>
+</dependency>
 	</dependencies>
 	<build>
 		<plugins>

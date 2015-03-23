@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.weld.environment.se.Weld;
-import org.jboss.weld.environment.se.WeldContainer;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -14,8 +12,13 @@ import org.junit.Test;
 
 import rssfeedleitor.dao.ChannelDAO;
 import rssfeedleitor.dao.FeedDAO;
+import rssfeedleitor.guice.AppModule;
 import rssfeedleitor.model.Channel;
 import rssfeedleitor.model.Feed;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 import dbunit.dataset.load.DBUnitLoad;
 
 public class FeedDAOTest  extends DBUnitLoad{
@@ -32,11 +35,10 @@ public class FeedDAOTest  extends DBUnitLoad{
 	public static void init() throws Exception {
 		setUp(dataSet);
 		
-		Weld weld = new Weld();
-		WeldContainer container = weld.initialize();
+		Injector injector = Guice.createInjector(new AppModule());
 		
-		feedDAO = container.instance().select(FeedDAO.class).get();
-		channelDAO = container.instance().select(ChannelDAO.class).get();
+		feedDAO = injector.getInstance(FeedDAO.class);
+		channelDAO = injector.getInstance(ChannelDAO.class);
 	}
 	
 	@Test

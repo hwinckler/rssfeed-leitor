@@ -4,24 +4,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SqlSessionFactoryProvider {
+import com.google.inject.Provider;
+
+public class SqlSessionFactoryProvider implements Provider<SqlSessionFactory>{
 
 	private static final Logger logger = LoggerFactory.getLogger(SqlSessionFactoryProvider.class);
 
 	private SqlSessionFactory sqlSessionFactory;
 
-	@Produces
-	@ApplicationScoped
-	public SqlSessionFactory produceFactory() {
+	public SqlSessionFactory get() {
 		try {
 
 			logger.debug("obtendo arquivo de configuração do mybatis...");

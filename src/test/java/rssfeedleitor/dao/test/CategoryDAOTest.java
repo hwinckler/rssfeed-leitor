@@ -5,15 +5,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.weld.environment.se.Weld;
-import org.jboss.weld.environment.se.WeldContainer;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import rssfeedleitor.dao.CategoryDAO;
+import rssfeedleitor.guice.AppModule;
 import rssfeedleitor.model.Category;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 import dbunit.dataset.load.DBUnitLoad;
 
 public class CategoryDAOTest extends DBUnitLoad {
@@ -27,10 +30,9 @@ public class CategoryDAOTest extends DBUnitLoad {
 	public static void init() throws Exception {
 		setUp(dataSet);
 		
-		Weld weld = new Weld();
-		WeldContainer container = weld.initialize();
+		Injector injector = Guice.createInjector(new AppModule());
+		categoryDAO = injector.getInstance(CategoryDAO.class);
 		
-		categoryDAO = container.instance().select(CategoryDAO.class).get();
 	}
 	
 	@Test

@@ -6,22 +6,25 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.weld.environment.se.Weld;
-import org.jboss.weld.environment.se.WeldContainer;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import dbunit.dataset.load.DBUnitLoad;
 import rssfeedleitor.dao.CategoryDAO;
 import rssfeedleitor.dao.ChannelDAO;
 import rssfeedleitor.dao.FeedDAO;
+import rssfeedleitor.guice.AppModule;
 import rssfeedleitor.model.Category;
 import rssfeedleitor.model.Channel;
 import rssfeedleitor.model.Feed;
 import rssfeedleitor.reader.RSSFeed;
 import rssfeedleitor.reader.RSSFeedParserException;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+import dbunit.dataset.load.DBUnitLoad;
 
 public class RSSFeedParserTest extends DBUnitLoad {
 
@@ -43,14 +46,13 @@ public class RSSFeedParserTest extends DBUnitLoad {
 	public static void init() throws Exception {
 		setUp(dataSet);
 		
-		Weld weld = new Weld();
-		WeldContainer container = weld.initialize();
+		Injector injector = Guice.createInjector(new AppModule());
 		
-		rssFeed = container.instance().select(RSSFeed.class).get();
+		rssFeed = injector.getInstance(RSSFeed.class);
 		
-		categoryDAO = container.instance().select(CategoryDAO.class).get();
-		channelDAO = container.instance().select(ChannelDAO.class).get();
-		feedDAO = container.instance().select(FeedDAO.class).get();
+		categoryDAO = injector.getInstance(CategoryDAO.class);
+		channelDAO = injector.getInstance(ChannelDAO.class);
+		feedDAO = injector.getInstance(FeedDAO.class);
 		
 		
 	}
