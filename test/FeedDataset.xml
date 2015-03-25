@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <category id="1" title="Java" date="2015-03-12 21:07:37.0"/>
+  <category id="2" title="Tecnologias" date="2015-03-12 21:07:37.0"/>
+  <category id="3" title="Agile e TDD" date="2015-03-12 21:07:37.0"/>
+  <channel id="1" category_id="1" title="Notícias Java" link="http://channel1.com" lastSynchronize="2015-03-15 20:25:06.0" synchronize="true"/>
+  <channel id="2" category_id="1" title="Java Web" link="http://channel2.com" lastSynchronize="2015-03-15 20:25:06.0" synchronize="true"/>
+  <channel id="3" category_id="3" title="Agile News" link="http://channel1.com" lastSynchronize="2015-03-15 20:25:06.0" synchronize="false"/> 
+  <feed/>  
+</dataset>

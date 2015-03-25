@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="production">
+		<environment id="production">
+			<transactionManager type="JDBC" />
+            <!--  connecting to Cloud SQL -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.GoogleDriver"/>
+                <property name="url" value="jdbc:google:mysql://driven-striker-89000:mybatis-instance/db1?user=root"/>
+            </dataSource>
+		</environment>	
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/rssfeed-leitor-db"/>
+				<property name="username" value="root"/>
+				<property name="password" value="root"/>
+			</dataSource>
+		</environment>
+		<environment id="test">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/rssfeed-leitor-db-test"/>
+				<property name="username" value="root"/>
+				<property name="password" value="root"/>
+			</dataSource>
+		</environment>		
+	</environments>
+	<mappers>
+		<mapper class="rssfeedleitor.mapper.CategoryMapper" />
+		<mapper class="rssfeedleitor.mapper.ChannelMapper" />
+		<mapper class="rssfeedleitor.mapper.FeedMapper" />
+	</mappers>
+</configuration>
