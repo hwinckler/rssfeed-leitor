@@ -22,7 +22,7 @@ public class CategoryDAOImpl implements CategoryDAO{
 	private SqlSessionFactory sqlSessionFactory;
 	
 	public void insert(Category category) {
-		logger.debug("insert...");
+		logger.debug("insert()...");
 		
 		try(SqlSession session = sqlSessionFactory.openSession()){
 			CategoryMapper categoryMapper = session.getMapper(CategoryMapper.class);
@@ -33,7 +33,7 @@ public class CategoryDAOImpl implements CategoryDAO{
 
 	@Override
 	public List<Category> findAll() {
-		logger.debug("findAll...");
+		logger.debug("findAll()...");
 		
 		try(SqlSession session = sqlSessionFactory.openSession()){
 			CategoryMapper categoryMapper = session.getMapper(CategoryMapper.class);
@@ -43,11 +43,21 @@ public class CategoryDAOImpl implements CategoryDAO{
 
 	@Override
 	public Category findById(Integer id) {
-		logger.debug("findById...");
+		logger.debug("findById()...");
 		
 		try(SqlSession session = sqlSessionFactory.openSession()){
 			CategoryMapper categoryMapper = session.getMapper(CategoryMapper.class);
 			return categoryMapper.findById(id);
+		}
+	}
+
+	@Override
+	public Category findByTitle(String title) {
+		logger.debug("findByTitle()...");
+		
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			CategoryMapper categoryMapper = session.getMapper(CategoryMapper.class);
+			return categoryMapper.findByTitle(title);
 		}
 	}
 

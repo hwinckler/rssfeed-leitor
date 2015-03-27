@@ -33,4 +33,7 @@ public interface CategoryMapper {
 	
 	@Select("SELECT * FROM channel WHERE category_id = #{id}")
 	public List<Channel> getChannels(Integer id);
+
+	@Select("SELECT * FROM category WHERE title = #{title}")
+	public Category findByTitle(String title);
 }

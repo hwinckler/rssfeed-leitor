@@ -11,4 +11,6 @@ public interface CategoryDAO {
 		public List<Category> findAll();
 
 		public Category findById(Integer id);
+
+		public Category findByTitle(String title);
 }
