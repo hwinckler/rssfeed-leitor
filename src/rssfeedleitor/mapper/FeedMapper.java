@@ -15,7 +15,7 @@ import rssfeedleitor.model.Feed;
 
 public interface FeedMapper {
 
-	@Insert("INSERT INTO feed(channel_id, guid, title, pubDate, link) VALUES(#{channel.id}, #{guid}, #{title}, #{pubDate}, #{link})")
+	@Insert("INSERT INTO feed(id, channel_id, guid, title, pubDate, link) VALUES(#{id}, #{channel.id}, #{guid}, #{title}, #{pubDate}, #{link})")
 	@Options(useGeneratedKeys=true, keyProperty="id")
 	public void insert(Feed feed);
 	

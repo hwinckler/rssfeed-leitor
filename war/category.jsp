@@ -13,18 +13,20 @@
 
 	<c:import url="commons/header.jsp?opt=category" />
     
-    
     <ol class="breadcrumb">
       <li><a href="index">Home</a></li>
       <li class="active">Categories</li>
     </ol>
+    
     <form action="category" method="post">
       <div class="form-group">
         <label for="category">Category</label>
-        <input type="hidden" id="id" name="id" value="${category.id}">
-        <input type="hidden" id="act" name="act" value="${empty category ? 'insert' : 'update'}">
         <input type="text" class="form-control" id="title" name="title" placeholder="Java" value="${category.title}">
       </div>
+      
+      <input type="hidden" id="id" name="id" value="${category.id}">
+      <input type="hidden" id="act" name="act" value="${empty category ? 'insert' : 'update'}">
+      
       <button type="submit" class="btn btn-primary">${empty category ? 'add' : 'update'}</button>
     </form>
     <br>
