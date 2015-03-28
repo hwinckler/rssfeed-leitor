@@ -13,4 +13,10 @@ public interface CategoryDAO {
 		public Category findById(Integer id);
 
 		public Category findByTitle(String title);
+
+		public void delete(Integer id);
+
+		public void update(Integer id, String title);
+
+		public Integer findIdFromDefaultCategory();
 }

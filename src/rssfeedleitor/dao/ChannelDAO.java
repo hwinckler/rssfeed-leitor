@@ -11,4 +11,6 @@ public interface ChannelDAO {
 	public List<Channel> findAll();
 
 	public Channel findById(Integer id);
+
+	public void updateToDefaultCategory(Integer id, Integer defaultCategoryId);
 }

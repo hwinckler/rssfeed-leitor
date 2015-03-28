@@ -22,7 +22,7 @@ public class ChannelDAOImpl implements ChannelDAO{
 	private SqlSessionFactory sqlSessionFactory;
 	
 	public void insert(Channel channel) {
-		logger.debug("insert...");
+		logger.debug("insert()...");
 		try(SqlSession session = sqlSessionFactory.openSession()){
 			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
 			channelMapper.insert(channel);
@@ -32,7 +32,7 @@ public class ChannelDAOImpl implements ChannelDAO{
 
 	@Override
 	public List<Channel> findAll() {
-		logger.debug("findAll...");
+		logger.debug("findAll()...");
 		try(SqlSession session = sqlSessionFactory.openSession()){
 			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
 			return channelMapper.findAll();
@@ -41,10 +41,20 @@ public class ChannelDAOImpl implements ChannelDAO{
 
 	@Override
 	public Channel findById(Integer id) {
-		logger.debug("findById...");
+		logger.debug("findById()...");
 		try(SqlSession session = sqlSessionFactory.openSession()){
 			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
 			return channelMapper.findById(id);
+		}
+	}
+
+	@Override
+	public void updateToDefaultCategory(Integer id, Integer defaultCategoryId) {
+		logger.debug("updateToDefaultCategory()...");
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
+			channelMapper.updateToDefaultCategory(id, defaultCategoryId);
+			session.commit();
 		}
 	}
 

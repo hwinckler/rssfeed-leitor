@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import rssfeedleitor.model.Category;
 import rssfeedleitor.model.Channel;
@@ -41,4 +42,7 @@ public interface ChannelMapper {
 	
 	@Select("SELECT * FROM feed where channel_id = #{id}")
 	public List<Feed> getFeeds(Integer id);
+
+	@Update("UPDATE channel set category_id = #{param2} where category_id = #{param1}")
+	public void updateToDefaultCategory(Integer id, Integer defaultCategoryId);
 }

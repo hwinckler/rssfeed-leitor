@@ -3,7 +3,9 @@ package rssfeedleitor.guice;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import rssfeedleitor.bo.CategoryBO;
-import rssfeedleitor.bo.CategoryBOImp;
+import rssfeedleitor.bo.ChannelBO;
+import rssfeedleitor.bo.impl.CategoryBOImp;
+import rssfeedleitor.bo.impl.ChannelBOImpl;
 import rssfeedleitor.dao.CategoryDAO;
 import rssfeedleitor.dao.ChannelDAO;
 import rssfeedleitor.dao.FeedDAO;
@@ -23,6 +25,8 @@ public class AppModule extends AbstractModule {
 		  bind(CategoryBO.class).to(CategoryBOImp.class);
 		  
 		  bind(ChannelDAO.class).to(ChannelDAOImpl.class);
+		  bind(ChannelBO.class).to(ChannelBOImpl.class);
+		  
 		  bind(FeedDAO.class).to(FeedDAOImpl.class);
 		  bind(RSSFeed.class).to(RSSFeedParser.class);
 		  bind(SqlSessionFactory.class).toProvider(SqlSessionFactoryProvider.class);

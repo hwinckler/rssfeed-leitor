@@ -11,4 +11,8 @@ public interface CategoryBO {
 	public List<Category> findAll();
 
 	public Category findById(Integer id);
+
+	public void delete(Integer id) throws Exception;
+
+	public void update(Integer id, String title);
 }

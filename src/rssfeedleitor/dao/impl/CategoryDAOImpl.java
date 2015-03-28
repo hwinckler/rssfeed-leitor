@@ -61,4 +61,34 @@ public class CategoryDAOImpl implements CategoryDAO{
 		}
 	}
 
+	@Override
+	public void delete(Integer id) {
+		logger.debug("delete()...");
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			CategoryMapper categoryMapper = session.getMapper(CategoryMapper.class);
+			categoryMapper.delete(id);
+			session.commit();
+		}
+	}
+
+	@Override
+	public void update(Integer id, String title) {
+		logger.debug("update()...");
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			CategoryMapper categoryMapper = session.getMapper(CategoryMapper.class);
+			categoryMapper.update(id, title);
+			session.commit();
+		}
+	}
+
+	@Override
+	public Integer findIdFromDefaultCategory() {
+		logger.debug("findIdFromDefaultCategory()...");
+		
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			CategoryMapper categoryMapper = session.getMapper(CategoryMapper.class);
+			return categoryMapper.findIdFromDefaultCategory();
+		}
+	}
+
 }

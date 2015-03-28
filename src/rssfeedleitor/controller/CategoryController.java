@@ -41,8 +41,6 @@ public class CategoryController extends HttpServlet {
 	private void action(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		logger.debug("action()...");
 		
-		List<Category> categories = Collections.emptyList();
-		
 		try{
 			
 			String act = ((request.getParameter("act") != null) ? request.getParameter("act") : "");
@@ -57,17 +55,26 @@ public class CategoryController extends HttpServlet {
 			logger.debug("title = " + title);
 			logger.debug("id = " + id);
 			
-			if(act.equals("add")){
+			if(act.equals("insert")){
 				categoryBO.insert(title);
 			}
-			
-			categories = categoryBO.findAll();
+			else if(act.equals("delete")){
+				categoryBO.delete(id);
+			}
+			else if(act.equals("update")){
+				categoryBO.update(id, title);
+			}
 			
 		}
 		catch(Exception e){
 			logger.error("doGet", e);
 		}
-	
+		
+		List<Category> categories = categoryBO.findAll();
+		if(categories == null){
+			categories = Collections.emptyList();
+		}
+		
 		request.setAttribute("categories", categories);
 	
 		logger.debug("dispatcher()...");
