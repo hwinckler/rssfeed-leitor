@@ -1,6 +1,8 @@
 package rssfeedleitor.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,9 +43,12 @@ public class CategoryController extends HttpServlet {
 	private void action(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		logger.debug("action()...");
 		
+		String erro = "Erro: <br>";
+		
 		try{
 			
 			String act = ((request.getParameter("act") != null) ? request.getParameter("act") : "");
+			//TODO fix
 //			if(act.isEmpty()){
 //				throw new Exception("No action found!");
 //			}
@@ -55,6 +60,8 @@ public class CategoryController extends HttpServlet {
 			logger.debug("title = " + title);
 			logger.debug("id = " + id);
 			
+			Category category = null;
+			
 			if(act.equals("insert")){
 				categoryBO.insert(title);
 			}
@@ -64,10 +71,22 @@ public class CategoryController extends HttpServlet {
 			else if(act.equals("update")){
 				categoryBO.update(id, title);
 			}
+			else if(act.equals("select")){
+				category = categoryBO.findById(id);
+			}
+				
+			request.setAttribute("category", category);
 			
 		}
 		catch(Exception e){
-			logger.error("doGet", e);
+			logger.error("action", e);
+			
+			erro += e.getMessage() + "<br>";
+			
+			StringWriter errors = new StringWriter();
+			e.printStackTrace(new PrintWriter(errors));
+			erro += errors.toString();
+			
 		}
 		
 		List<Category> categories = categoryBO.findAll();
@@ -76,6 +95,7 @@ public class CategoryController extends HttpServlet {
 		}
 		
 		request.setAttribute("categories", categories);
+		request.setAttribute("erro", erro);
 	
 		logger.debug("dispatcher()...");
 		

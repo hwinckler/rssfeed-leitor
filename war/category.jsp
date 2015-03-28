@@ -22,17 +22,17 @@
       <div class="form-group">
         <label for="category">Category</label>
         <input type="hidden" id="id" name="id" value="${category.id}">
-        <input type="hidden" id="act" name="act" value="insert">
+        <input type="hidden" id="act" name="act" value="${empty category ? 'insert' : 'update'}">
         <input type="text" class="form-control" id="title" name="title" placeholder="Java" value="${category.title}">
       </div>
-      <button type="submit" class="btn btn-primary">add</button>
+      <button type="submit" class="btn btn-primary">${empty category ? 'add' : 'update'}</button>
     </form>
     <br>
     <ul class="list-group">
 
 		<c:forEach var="category" items="${categories}">
 		
-	      <li class="list-group-item"><a href="">${category.title}</a>
+	      <li class="list-group-item"><a href="category?act=select&id=${category.id}">${category.title}</a>
 	
 	        <p class="navbar-right">
 	          <a href="category?act=delete&id=${category.id}"><span class="glyphicon glyphicon-trash">&nbsp;</span></a>
@@ -44,7 +44,8 @@
 
     </ul>
 
-
+	<br>
+	${erro}
 
   </div> <!-- /container -->
 

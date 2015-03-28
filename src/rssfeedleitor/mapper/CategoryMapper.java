@@ -16,7 +16,7 @@ import rssfeedleitor.model.Channel;
 
 public interface CategoryMapper {
 
-	@Insert("INSERT INTO CATEGORY(TITLE, DATE) VALUES(#{title}, #{date})")
+	@Insert("INSERT INTO category(id, title, date) VALUES(#{id}, #{title}, #{date})")
 	@Options(useGeneratedKeys=true, keyProperty="id")
 	public void insert(Category category);
 	
@@ -42,7 +42,7 @@ public interface CategoryMapper {
 	@Delete("DELETE FROM category WHERE id = #{id}")
 	public void delete(Integer id);
 
-	@Update("UPDATE category set title = #{title}")
+	@Update("UPDATE category set title = #{param2} WHERE id = #{param1}")
 	public void update(Integer id, String title);
 
 	@Select("SELECT id FROM category where title = '" + Category.DEFAULT + "'")
