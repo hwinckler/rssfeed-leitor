@@ -58,4 +58,23 @@ public class ChannelDAOImpl implements ChannelDAO{
 		}
 	}
 
+	@Override
+	public List<Channel> findByCategory(Integer categoryID) {
+		logger.debug("findByCategory()...");
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
+			return channelMapper.findByCategory(categoryID);
+		}
+	}
+
+	@Override
+	public void delete(Integer id) {
+		logger.debug("delete()...");
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
+			channelMapper.delete(id);
+			session.commit();
+		}
+	}
+
 }

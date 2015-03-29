@@ -98,11 +98,9 @@ public class RSSFeedParserTest extends DBUnitLoad {
 
 		Assert.assertEquals("Item 2", feeds.get(0).getTitle());
 		Assert.assertEquals("http://item2.ccom", feeds.get(0).getLink());
-		Assert.assertEquals(2, feeds.get(0).getGuid().intValue());
 		
 		Assert.assertEquals("Item 1", feeds.get(1).getTitle());
 		Assert.assertEquals("http://item1.ccom", feeds.get(1).getLink());
-		Assert.assertEquals(1, feeds.get(1).getGuid().intValue());
 		
 	}
 	

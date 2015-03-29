@@ -22,7 +22,7 @@ public class FeedDAOImpl implements FeedDAO{
 	private SqlSessionFactory sqlSessionFactory;
 	
 	public void insert(Feed feed) {
-		logger.debug("insert...");
+		logger.debug("insert()...");
 		
 		try(SqlSession session = sqlSessionFactory.openSession()){
 			FeedMapper feedMapper = session.getMapper(FeedMapper.class);
@@ -34,7 +34,7 @@ public class FeedDAOImpl implements FeedDAO{
 
 	@Override
 	public List<Feed> findAll() {
-		logger.debug("findAll...");
+		logger.debug("findAll()...");
 		
 		try(SqlSession session = sqlSessionFactory.openSession()){
 			FeedMapper feedMapper = session.getMapper(FeedMapper.class);
@@ -44,12 +44,23 @@ public class FeedDAOImpl implements FeedDAO{
 
 	@Override
 	public Feed findById(Integer id) {
-		logger.debug("findById...");
+		logger.debug("findById()...");
 		
 		try(SqlSession session = sqlSessionFactory.openSession()){
 			FeedMapper feedMapper = session.getMapper(FeedMapper.class);
 			return feedMapper.findById(id);
 		}
+	}
+
+	@Override
+	public void deleteByChannel(Integer id) {
+		logger.debug("deleteByChannel()...");
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			FeedMapper feedMapper = session.getMapper(FeedMapper.class);
+			feedMapper.deleteByChannel(id);
+			session.commit();
+		}
+		
 	}
 
 }

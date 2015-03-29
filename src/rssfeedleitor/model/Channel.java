@@ -8,6 +8,7 @@ public class Channel {
 
 	private Integer id;
 	private String title;
+	private String description;
 	private String link;
 	private Date lastSynchronize;
 	private Boolean synchronize = Boolean.TRUE;
@@ -19,19 +20,21 @@ public class Channel {
 
 	}
 	
-	public Channel(Category category, String title, String link, Date lastSynchronize) {
+	public Channel(Category category, String title, String description, String link, Date lastSynchronize) {
 		super();
 		this.category = category;
 		this.title = title;
+		this.description = description;
 		this.link = link;
 		this.lastSynchronize = lastSynchronize;
 	}
 	
 	
 
-	public Channel(String title, String link, Date lastSynchronize) {
+	public Channel(String title, String description, String link, Date lastSynchronize) {
 		super();
 		this.title = title;
+		this.description = description;
 		this.link = link;
 		this.lastSynchronize = lastSynchronize;
 	}
@@ -92,5 +95,12 @@ public class Channel {
 	
 	public void setFeeds(List<Feed> feeds) {
 		this.feeds = feeds;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

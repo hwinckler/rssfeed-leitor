@@ -9,6 +9,7 @@ import java.util.Locale;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.XMLEvent;
 
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ public class RSSFeedParser implements RSSFeed{
 
 	private static final Logger logger = LoggerFactory.getLogger(RSSFeedParser.class);
 
-	private XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+	private XMLInputFactory inputFactory = null;
 	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US);
 
 	@Override
@@ -33,11 +34,12 @@ public class RSSFeedParser implements RSSFeed{
 
 		try{
 
+			inputFactory = XMLInputFactory.newInstance();
 			eventReader = inputFactory.createXMLEventReader(stream);
 
 			String title = "";
 			String link = "";
-			Integer guid = 0;
+			String description = "";
 			Calendar pubDate = null;
 
 			while (eventReader.hasNext()) {
@@ -50,23 +52,23 @@ public class RSSFeedParser implements RSSFeed{
 					switch (localPart.toLowerCase()) {
 					case "item":
 						if(isFeedHeader){
-							channel = new Channel(title, link, new Date());
+							channel = new Channel(title, description, link, new Date());
 							isFeedHeader = false;
 						}
 						event = eventReader.nextEvent();
 						break;
 					case "title":
-						title = eventReader.nextEvent().asCharacters().getData();
+						title = getCharacterData(eventReader.nextEvent());
 						break;
+					case "description":
+						description = getCharacterData(eventReader.nextEvent());
+						break;						
 					case "link":
-						link = eventReader.nextEvent().asCharacters().getData();
+						link = getCharacterData(eventReader.nextEvent());
 						break;
-					case "guid":
-						guid = Integer.valueOf(eventReader.nextEvent().asCharacters().getData());
-						break;	
 					case "pubdate":
 						pubDate = Calendar.getInstance();
-						pubDate.setTime(sdf.parse(eventReader.nextEvent().asCharacters().getData()));
+						pubDate.setTime(sdf.parse(getCharacterData(eventReader.nextEvent())));
 						break;			            
 					}
 
@@ -75,7 +77,7 @@ public class RSSFeedParser implements RSSFeed{
 					
 					if (event.asEndElement().getName().getLocalPart().equalsIgnoreCase("item")) {
 
-						Feed feed = new Feed(channel, guid, title, pubDate.getTime(), link);
+						Feed feed = new Feed(channel, title, pubDate.getTime(), link);
 						channel.getFeeds().add(feed);
 
 						event = eventReader.nextEvent();
@@ -102,4 +104,7 @@ public class RSSFeedParser implements RSSFeed{
 		return channel;
 	}
 
+	  private String getCharacterData(XMLEvent nextEvent)throws XMLStreamException {
+		return (nextEvent instanceof Characters) ? nextEvent.asCharacters().getData() : ""; 
+	  }
 }

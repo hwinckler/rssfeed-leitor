@@ -1,6 +1,5 @@
 package rssfeedleitor.bo.impl;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -33,11 +32,13 @@ public class RSSFeedBOImpl implements RSSFeedBO {
 		httpConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
 		
 		if (httpConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-			throw new Exception("Failet to feed parse url: " + link);
+			throw new Exception("Failed to obtain feed of url: " + link);
 		}
 					
 		try(InputStream stream = httpConnection.getInputStream()){
-			return rssFeed.parse(stream);
+			Channel channel = rssFeed.parse(stream);
+			channel.setLink(link);
+			return channel;
 		}
 	}
 }

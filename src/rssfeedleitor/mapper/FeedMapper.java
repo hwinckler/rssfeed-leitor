@@ -2,6 +2,7 @@ package rssfeedleitor.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Options;
@@ -15,7 +16,7 @@ import rssfeedleitor.model.Feed;
 
 public interface FeedMapper {
 
-	@Insert("INSERT INTO feed(id, channel_id, guid, title, pubDate, link) VALUES(#{id}, #{channel.id}, #{guid}, #{title}, #{pubDate}, #{link})")
+	@Insert("INSERT INTO feed(id, channel_id, title, pubDate, link) VALUES(#{id}, #{channel.id}, #{title}, #{pubDate}, #{link})")
 	@Options(useGeneratedKeys=true, keyProperty="id")
 	public void insert(Feed feed);
 	
@@ -26,7 +27,6 @@ public interface FeedMapper {
 	@Results(value = {
 			@Result(property="id", column="id"),
 			@Result(property="title", column="title"),
-			@Result(property="guid", column="guid"),
 			@Result(property="pubDate", column="pubDate"),
 			@Result(property="link", column="link"),
             @Result(property="channel", javaType=Channel.class, column="channel_id",
@@ -34,7 +34,7 @@ public interface FeedMapper {
             })
 	public Feed findById(Integer id);
 	
-	@Select("SELECT * FROM channel where id = #{id}")
+	@Select("SELECT * FROM channel WHERE id = #{id}")
 	@Results(value = {
 			@Result(property="id", column="id"),
 			@Result(property="title", column="title"),
@@ -46,6 +46,9 @@ public interface FeedMapper {
             })	
 	public Channel getChannel(Integer id);
 	
-	@Select("SELECT * FROM category where id = #{id}")
-	public Category getCategory(Integer id);	
+	@Select("SELECT * FROM category WHERE id = #{id}")
+	public Category getCategory(Integer id);
+
+	@Delete("DELETE FROM feed WHERE channel_id = #{id}")
+	public void deleteByChannel(Integer id);	
 }

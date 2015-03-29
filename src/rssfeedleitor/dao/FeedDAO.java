@@ -11,4 +11,6 @@ public interface FeedDAO {
 	public List<Feed> findAll();
 
 	public Feed findById(Integer id);
+
+	public void deleteByChannel(Integer id);
 }

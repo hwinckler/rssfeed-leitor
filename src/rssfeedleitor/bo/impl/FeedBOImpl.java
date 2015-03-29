@@ -24,4 +24,16 @@ public class FeedBOImpl implements FeedBO {
 		return feedDAO.findAll();
 	}
 
+	@Override
+	public void insert(Feed feed) {
+		logger.debug("insert()...");
+		feedDAO.insert(feed);
+	}
+
+	@Override
+	public void deleteByChannel(Integer id) {
+		logger.debug("deleteByChannel()...");
+		feedDAO.deleteByChannel(id);
+	}
+
 }

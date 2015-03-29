@@ -46,16 +46,16 @@ public class FeedDAOTest  extends DBUnitLoad{
 		
 		Channel channel1 = channelDAO.findById(1);
 		
-		Feed feed1 = new Feed(channel1, 1, "Nova versão do JUnit", new Date(), "http://feed1.com");
-		Feed feed2 = new Feed(channel1, 2, "CDI compatível com MyBatis", new Date(), "http://feed3.com");
+		Feed feed1 = new Feed(channel1, "Nova versão do JUnit", new Date(), "http://feed1.com");
+		Feed feed2 = new Feed(channel1, "CDI compatível com MyBatis", new Date(), "http://feed3.com");
 		
 		Channel channel2 = channelDAO.findById(2);
 		
-		Feed feed3 = new Feed(channel2, 3, "Tutorial de BootStrap com MyBatis", new Date(), "http://feed3.com");
+		Feed feed3 = new Feed(channel2, "Tutorial de BootStrap com MyBatis", new Date(), "http://feed3.com");
 		
 		Channel channel3 = channelDAO.findById(3);
 		
-		Feed feed4 = new Feed(channel3, 4, "Entrevista com Kent Beck sobre Junit e TDD", new Date(), "http://feed4.com");
+		Feed feed4 = new Feed(channel3, "Entrevista com Kent Beck sobre Junit e TDD", new Date(), "http://feed4.com");
 
 		feedDAO.insert(feed1);
 		feedDAO.insert(feed2);

@@ -49,8 +49,8 @@ public class ChannelDAOTest  extends DBUnitLoad{
 		
 		Assert.assertEquals("Java", category.getTitle());
 		
-		Channel channel1 = new Channel(category, "channel1", "http://channel1.com", new Date());
-		Channel channel2 = new Channel(category, "channel2", "http://channel2.com", new Date());
+		Channel channel1 = new Channel(category, "channel1", "", "http://channel1.com", new Date());
+		Channel channel2 = new Channel(category, "channel2", "", "http://channel2.com", new Date());
 	
 		channelDAO.insert(channel1);
 		channelDAO.insert(channel2);

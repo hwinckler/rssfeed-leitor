@@ -2,6 +2,7 @@ package rssfeedleitor.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Options;
@@ -16,7 +17,7 @@ import rssfeedleitor.model.Feed;
 
 public interface ChannelMapper {
 
-	@Insert("INSERT INTO channel(title, link, lastSynchronize, synchronize, category_id) VALUES(#{title}, #{link}, #{lastSynchronize}, #{synchronize}, #{category.id})")
+	@Insert("INSERT INTO channel(id, title, description, link, lastSynchronize, synchronize, category_id) VALUES(#{id}, #{title}, #{description}, #{link}, #{lastSynchronize}, #{synchronize}, #{category.id})")
 	@Options(useGeneratedKeys=true, keyProperty="id")
 	public void insert(Channel channel);
 	
@@ -27,6 +28,7 @@ public interface ChannelMapper {
 	@Results(value = {
 			@Result(property="id", column="id"),
 			@Result(property="title", column="title"),
+			@Result(property="description", column="description"),
 			@Result(property="link", column="link"),
 			@Result(property="lastSynchronize", column="lastSynchronize"),
 			@Result(property="synchronize", column="synchronize"),
@@ -45,4 +47,10 @@ public interface ChannelMapper {
 
 	@Update("UPDATE channel set category_id = #{param2} where category_id = #{param1}")
 	public void updateToDefaultCategory(Integer id, Integer defaultCategoryId);
+
+	@Select("SELECT * FROM channel where category_id = #{param1}")
+	public List<Channel> findByCategory(Integer categoryID);
+
+	@Delete("DELETE FROM channel WHERE id = #{id}")
+	public void delete(Integer id);
 }

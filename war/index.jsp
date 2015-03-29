@@ -50,7 +50,8 @@
     </div>
 
 
-
+	<br>
+	${erro}
 
 
   </div> <!-- /container -->

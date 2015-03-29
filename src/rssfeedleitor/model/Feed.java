@@ -5,7 +5,6 @@ import java.util.Date;
 public class Feed {
 	
 	private Integer id;
-	private Integer guid;
 	private String title;
 	private Date pubDate;
 	private String link;
@@ -15,9 +14,8 @@ public class Feed {
 	public Feed() {
 	}
 	
-	public Feed(Channel channel, Integer guid, String title, Date pubDate, String link) {
+	public Feed(Channel channel, String title, Date pubDate, String link) {
 		super();
-		this.guid = guid;
 		this.title = title;
 		this.pubDate = pubDate;
 		this.link = link;
@@ -29,12 +27,6 @@ public class Feed {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public Integer getGuid() {
-		return guid;
-	}
-	public void setGuid(Integer guid) {
-		this.guid = guid;
 	}
 	public String getTitle() {
 		return title;

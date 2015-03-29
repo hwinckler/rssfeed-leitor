@@ -8,4 +8,8 @@ public interface FeedBO {
 
 	List<Feed> findAll();
 
+	void insert(Feed feed);
+
+	void deleteByChannel(Integer id);
+
 }

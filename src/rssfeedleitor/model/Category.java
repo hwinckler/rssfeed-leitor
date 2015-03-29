@@ -7,6 +7,7 @@ import java.util.List;
 public class Category {
 
 	public final static String DEFAULT = "Default";
+	public final static Integer DEFAULT_ID = 1;
 	
 	private Integer id;
 	private String title;
@@ -15,7 +16,10 @@ public class Category {
 	private List<Channel> channels = new ArrayList<Channel>();
 	
 	public Category() {
-		// TODO Auto-generated constructor stub
+	}
+
+	public Category(Integer id){
+		this.id = id;
 	}
 	
 	public Category(String title, Date date) {
