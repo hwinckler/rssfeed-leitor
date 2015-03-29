@@ -13,4 +13,6 @@ public interface FeedDAO {
 	public Feed findById(Integer id);
 
 	public void deleteByChannel(Integer id);
+
+	public List<Feed> findByCategory(Integer categoryID);
 }

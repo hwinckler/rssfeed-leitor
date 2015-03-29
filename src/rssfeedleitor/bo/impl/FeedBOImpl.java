@@ -36,4 +36,10 @@ public class FeedBOImpl implements FeedBO {
 		feedDAO.deleteByChannel(id);
 	}
 
+	@Override
+	public List<Feed> findByCategory(Integer categoryID) {
+		logger.debug("findByCategory()...");
+		return feedDAO.findByCategory(categoryID);
+	}
+
 }

@@ -50,5 +50,8 @@ public interface FeedMapper {
 	public Category getCategory(Integer id);
 
 	@Delete("DELETE FROM feed WHERE channel_id = #{id}")
-	public void deleteByChannel(Integer id);	
+	public void deleteByChannel(Integer id);
+
+	@Select("SELECT * FROM feed f inner join channel c on (f.channel_id = c.id) WHERE c.category_id = #{param1}")
+	public List<Feed> findByCategory(Integer categoryID);	
 }

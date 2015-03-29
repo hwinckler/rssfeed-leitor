@@ -12,4 +12,6 @@ public interface FeedBO {
 
 	void deleteByChannel(Integer id);
 
+	List<Feed> findByCategory(Integer categoryID);
+
 }

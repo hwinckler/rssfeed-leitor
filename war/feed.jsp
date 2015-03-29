@@ -63,7 +63,7 @@
     <ul class="list-group">
     
     	<c:forEach var="channel" items="${channels}">
-	      <li class="list-group-item"><a href="feed?act=select&id=${channel.id}">${channel.title} - ${channel.description}</a>
+	      <li class="list-group-item"><a href="feed?act=select&id=${channel.id}">${channel.title} - ${channel.link}</a>
 	
 	        <p class="navbar-right">
 	          <a href="feed?act=delete&id=${channel.id}"><span class="glyphicon glyphicon-trash">&nbsp;</span></a>

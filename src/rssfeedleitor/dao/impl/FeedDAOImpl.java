@@ -63,4 +63,14 @@ public class FeedDAOImpl implements FeedDAO{
 		
 	}
 
+	@Override
+	public List<Feed> findByCategory(Integer categoryID) {
+		logger.debug("findByCategory()...");
+		
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			FeedMapper feedMapper = session.getMapper(FeedMapper.class);
+			return feedMapper.findByCategory(categoryID);
+		}
+	}
+
 }
