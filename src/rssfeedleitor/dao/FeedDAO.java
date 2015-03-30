@@ -15,4 +15,6 @@ public interface FeedDAO {
 	public void deleteByChannel(Integer id);
 
 	public List<Feed> findByCategory(Integer categoryID);
+
+	public void markVisualized(Integer feedID);
 }

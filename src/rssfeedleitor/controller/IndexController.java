@@ -63,18 +63,23 @@ public class IndexController extends HttpServlet {
 //			}
 			
 			categoryID = ((request.getParameter("category_id") != null && !request.getParameter("category_id").isEmpty()) ? Integer.valueOf(request.getParameter("category_id")) : 0);
+			Integer feedID = ((request.getParameter("feed_id") != null && !request.getParameter("feed_id").isEmpty()) ? Integer.valueOf(request.getParameter("feed_id")) : 0);
 			
 			logger.debug("act = " + act);
 			logger.debug("categoryID = " + categoryID);
+			
+			if(act.equals("mark_visualized")){
+				feedBO.markVisualized(feedID);
+			}
 			
 			categories = categoryBO.findAll();
 			if(categoryID == 0 && (categories != null && !categories.isEmpty())){
 				categoryID = categories.get(0).getId();
 			}
 			
-			if(act.equals("select_category")){
-				feeds = feedBO.findByCategory(categoryID);
-			}
+
+			feeds = feedBO.findByCategory(categoryID);
+
 			
 		}
 		catch(Exception e){

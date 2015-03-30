@@ -77,7 +77,7 @@ public class RSSFeedParser implements RSSFeed{
 					
 					if (event.asEndElement().getName().getLocalPart().equalsIgnoreCase("item")) {
 
-						Feed feed = new Feed(channel, title, pubDate.getTime(), link);
+						Feed feed = new Feed(channel, title, description, pubDate.getTime(), link, Boolean.FALSE);
 						channel.getFeeds().add(feed);
 
 						event = eventReader.nextEvent();

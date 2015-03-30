@@ -73,4 +73,14 @@ public class FeedDAOImpl implements FeedDAO{
 		}
 	}
 
+	@Override
+	public void markVisualized(Integer feedID) {
+		logger.debug("markVisualized()...");
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			FeedMapper feedMapper = session.getMapper(FeedMapper.class);
+			feedMapper.markVisualized(feedID);
+			session.commit();
+		}
+	}
+
 }

@@ -7,10 +7,26 @@
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="css/normalize.css" rel="stylesheet" media="screen">
+  <script type="text/javascript">
+  	function openFeed(id, url){
+  		
+  		window.open(url, '_blank');
+  		
+		$('#act').val('mark_visualized');
+		$('#feed_id').val(id);
+		$('#form').submit();
 
+  	}  	
+  </script>
 </head>
 <body>
   <div class="container">
+  
+   <form action="index" method="post" id="form">
+   		<input type="hidden" id="category_id" name="category_id" value="${categoryID}">
+		<input type="hidden" id="feed_id" name="feed_id" value="">
+		<input type="hidden" id="act" name="act" value="">   
+   </form>
 
 	<c:import url="commons/header.jsp?opt=index" />
 
@@ -26,9 +42,9 @@
 
         <div class="list-group">
         	<c:forEach var="feed" items="${feeds}">
-	          <a href="#" class="list-group-item">
+	          <a href="#" onclick="openFeed(${feed.id}, '${feed.link}');" class="list-group-item ${feed.visualized ? '' : 'list-group-item-info'}">
 	            <h4 class="list-group-item-heading">${feed.title}</h4>
-	            <p class="list-group-item-text">${feed.link}</p>
+	            <p class="list-group-item-text">${feed.description}</p>
 	          </a>        	
         	</c:forEach>
         </div>

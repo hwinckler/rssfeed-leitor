@@ -42,4 +42,10 @@ public class FeedBOImpl implements FeedBO {
 		return feedDAO.findByCategory(categoryID);
 	}
 
+	@Override
+	public void markVisualized(Integer feedID) {
+		logger.debug("markVisualized()...");
+		feedDAO.markVisualized(feedID);
+	}
+
 }
