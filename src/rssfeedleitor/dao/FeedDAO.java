@@ -16,5 +16,5 @@ public interface FeedDAO {
 
 	public List<Feed> findByCategory(Integer categoryID);
 
-	public void markVisualized(Integer feedID);
+	public void markAsRead(Integer feedID);
 }

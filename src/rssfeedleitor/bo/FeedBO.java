@@ -14,6 +14,6 @@ public interface FeedBO {
 
 	List<Feed> findByCategory(Integer categoryID);
 
-	void markVisualized(Integer feedID);
+	void markAsRead(Integer feedID);
 
 }

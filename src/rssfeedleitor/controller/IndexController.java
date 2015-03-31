@@ -1,15 +1,12 @@
 package rssfeedleitor.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,7 +19,7 @@ import rssfeedleitor.model.Category;
 import rssfeedleitor.model.Feed;
 
 @Singleton
-public class IndexController extends HttpServlet {
+public class IndexController extends ServletController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
@@ -34,73 +31,76 @@ public class IndexController extends HttpServlet {
 	@Inject
 	private FeedBO feedBO;
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("doGet()...");
-		action(request, response);
-	}
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("doPost()...");
-		action(request, response);
-	}
 	
-	private void action(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("action()...");
+	public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.debug("index()...");
 		
 		List<Category> categories = Collections.emptyList();
+		
+		try{
+			
+			categories = categoryBO.findAll();
+			
+		}
+		catch(Exception e){
+			logger.error("index", e);
+			
+			printStackTraceToString(e, request);
+		}
+		
+		request.setAttribute("categories", categories);
+	
+		forward("/index.jsp", request, response);
+		
+	}
+	
+	public void feedList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.debug("feedList()...");
+		
 		List<Feed> feeds = Collections.emptyList();
 		
-		String erro = "Erro: <br>";
 		Integer categoryID = null;
 		
 		try{
 			
-			String act = ((request.getParameter("act") != null) ? request.getParameter("act") : "");
-			//TODO fix
-//			if(act.isEmpty()){
-//				throw new Exception("No action found!");
-//			}
+			categoryID = ((request.getParameter("categoryID") != null && !request.getParameter("categoryID").isEmpty()) ? Integer.valueOf(request.getParameter("categoryID")) : 0);
 			
-			categoryID = ((request.getParameter("category_id") != null && !request.getParameter("category_id").isEmpty()) ? Integer.valueOf(request.getParameter("category_id")) : 0);
-			Integer feedID = ((request.getParameter("feed_id") != null && !request.getParameter("feed_id").isEmpty()) ? Integer.valueOf(request.getParameter("feed_id")) : 0);
-			
-			logger.debug("act = " + act);
 			logger.debug("categoryID = " + categoryID);
 			
-			if(act.equals("mark_visualized")){
-				feedBO.markVisualized(feedID);
-			}
-			
-			categories = categoryBO.findAll();
-			if(categoryID == 0 && (categories != null && !categories.isEmpty())){
-				categoryID = categories.get(0).getId();
-			}
-			
-
 			feeds = feedBO.findByCategory(categoryID);
-
 			
 		}
 		catch(Exception e){
-			logger.error("action", e);
-			
-			erro += e.getMessage() + "<br>";
-			
-			StringWriter errors = new StringWriter();
-			e.printStackTrace(new PrintWriter(errors));
-			erro += errors.toString();
+			logger.error("feedList", e);
+
+			printStackTraceToString(e, request);
 		}
-	
-		request.setAttribute("erro", erro);
 		
 		request.setAttribute("categoryID", categoryID);
-		request.setAttribute("categories", categories);
 		request.setAttribute("feeds", feeds);
-	
-		logger.debug("dispatcher()...");
 		
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		forward("/feedList.jsp", request, response);
+
+	}
+	
+	public void markAsRead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.debug("markAsRead()...");
+		
+		try{
+			
+			Integer feedID = ((request.getParameter("feedID") != null && !request.getParameter("feedID").isEmpty()) ? Integer.valueOf(request.getParameter("feedID")) : 0);
+			
+			logger.debug("feedID = " + feedID);
+			
+			feedBO.markAsRead(feedID);
+			
+		}
+		catch(Exception e){
+			logger.error("feedList", e);
+
+			printStackTraceToString(e, request);
+		}
+	
 	}
 	
 

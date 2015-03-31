@@ -43,9 +43,9 @@ public class FeedBOImpl implements FeedBO {
 	}
 
 	@Override
-	public void markVisualized(Integer feedID) {
-		logger.debug("markVisualized()...");
-		feedDAO.markVisualized(feedID);
+	public void markAsRead(Integer feedID) {
+		logger.debug("markAsRead()...");
+		feedDAO.markAsRead(feedID);
 	}
 
 }
