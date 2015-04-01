@@ -35,7 +35,7 @@ public class IndexController extends ServletController {
 	public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("index()...");
 		
-		List<Category> categories = Collections.emptyList();
+		List<Category> categories = null;
 		
 		try{
 			
@@ -47,6 +47,9 @@ public class IndexController extends ServletController {
 			
 			printStackTraceToString(e, request);
 		}
+		
+		if(categories == null)
+			categories = Collections.emptyList();
 		
 		request.setAttribute("categories", categories);
 	

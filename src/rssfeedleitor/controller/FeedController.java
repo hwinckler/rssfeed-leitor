@@ -9,7 +9,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,7 +22,7 @@ import rssfeedleitor.model.Category;
 import rssfeedleitor.model.Channel;
 
 @Singleton
-public class FeedController extends HttpServlet {
+public class FeedController extends ServletController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FeedController.class);
 	
@@ -38,18 +37,74 @@ public class FeedController extends HttpServlet {
 	@Inject
 	private ChannelBO channelBO;
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("doGet()...");
-		action(request, response);
-	}
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("doPost()...");
-		action(request, response);
+	
+	public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		logger.debug("index()...");
+	
+		forward("/feed.jsp", request, response);
+		
 	}
 	
-	private void action(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	public void categorySelectList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		logger.debug("categorySelectList()...");
+		
+		List<Category> categories = null;
+		
+		try{
+			
+			categories = categoryBO.findAll();
+			
+		}
+		catch(Exception e){
+			logger.error("categorySelectList", e);
+			
+			printStackTraceToString(e, request);
+			
+		}
+		
+		if(categories == null){
+			categories = Collections.emptyList();
+		}
+		
+		request.setAttribute("categories", categories);
+	
+		forward("/categorySelectList.jsp", request, response);
+		
+	}
+	
+	public void channelListByCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		logger.debug("channelList()...");
+		
+		List<Channel> channels = null;
+		
+		try{
+			
+			Integer categoryID = ((request.getParameter("categoryID") != null && !request.getParameter("categoryID").isEmpty()) ? Integer.valueOf(request.getParameter("categoryID")) : Category.DEFAULT_ID);
+			
+			logger.debug("categoryID = " + categoryID);
+			
+			channels = channelBO.findByCategory(categoryID);
+			
+		}
+		catch(Exception e){
+			logger.error("channelList", e);
+			
+			printStackTraceToString(e, request);
+			
+		}
+		
+		if(channels == null){
+			channels = Collections.emptyList();
+		}
+		
+		request.setAttribute("channels", channels);
+	
+		forward("/channelList.jsp", request, response);
+		
+	}
+	
+
+	private void old(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		logger.debug("action()...");
 		
 		String erro = "Erro: <br>";

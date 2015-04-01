@@ -4,7 +4,7 @@
 <div class="list-group">
 	<c:if test="${fn:length(feeds) > 0}">
 		<c:forEach var="feed" items="${feeds}">
-			<a href="#" class="list-group-item ${feed.visualized ? '' : 'list-group-item-info'} feed">
+			<a href="#" class="list-group-item ${feed.visualized ? '' : 'list-group-item-info'} lnk-feed">
 				<h4 class="list-group-item-heading">${feed.title}</h4>
 				<p class="list-group-item-text">${feed.description}</p>
 				<span id="link" style="display: none;">${feed.link}</span>

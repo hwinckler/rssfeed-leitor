@@ -8,76 +8,9 @@
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="css/normalize.css" rel="stylesheet" media="screen">
 
-  <script type="text/javascript">
+  <script src="js/global.js"></script>
+  <script src="js/index.js"></script>
   
-  	var loading = '<img src=\"img/ajax-loader.gif\" class=\"loading\" />'
-  
-  	function init(){
-  		
-		$('.category').click(function(event) {
-			
-			$('.category').removeClass('active');
-			
-			$(this).addClass('active')
-		    feedList($(this).find('#cat_id').text());
-		    
-		    
-		});
-		
-		var categoryID = $('.categories a:first-child').attr('id');
-		
-		feedList(categoryID);
-  	}
-  	
-  	function feedList(categoryID){
-  		
-  		$.ajax({
-  		    url : 'index',
-  		    type : 'POST',
-  		    data : {
-  		        'act' : 'feedList',
-  		      	'categoryID' : categoryID
-  		    },
-  		    success : function(data) {              
-  		        $('#feed_content').html(data);
-  		        
-  				$('.feed').click(function(event) {
-  					
-  					$(this).removeClass('list-group-item-info');
-  					
-  					var link = $(this).find('#link').text();
-  					var feedID = $(this).find('#feed_id').text();
-  					
-  					window.open(link, '_blank');
-  					
-  					markAsRead(feedID);
-  				    
-  				});
-  		    },
-  		  	beforeSend: function(){
-  				$('#feed_content').html(loading);
-  			},
-  		});
-  		
-  	}
-  	
-  	function markAsRead(feedID){
-  		
-  		$.ajax({
-  		    url : 'index',
-  		    type : 'POST',
-  		    data : {
-  		        'act' : 'markAsRead',
-  		      	'feedID' : feedID
-  		    },
-  		    success : function(data) {              
-
-  		    },
-  		});
-  		
-  	}
- 	
-  </script>
 </head>
 <body>
   <div class="container">
@@ -88,7 +21,7 @@
       <div class="col-md-4">
         <div class="list-group categories" id="99">
   			<c:forEach var="category" items="${categories}" varStatus="status">
-            	<a href="#" class="list-group-item ${status.first ? 'active' : '' } category" id="${category.id}">${category.title} <span class="badge">14</span><span id="cat_id" style="display: none;">${category.id}</span></a>
+            	<a href="#" class="list-group-item ${status.first ? 'active' : '' } lnk-category" id="${category.id}">${category.title} <span class="badge">14</span><span id="cat_id" style="display: none;">${category.id}</span></a>
   			</c:forEach>
         </div>
       </div>

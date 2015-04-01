@@ -7,6 +7,10 @@
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="css/normalize.css" rel="stylesheet" media="screen">
+  
+  <script src="js/global.js"></script>
+  <script src="js/category.js"></script>
+    
 </head>
 <body>
   <div class="container">
@@ -18,31 +22,21 @@
       <li class="active">Categories</li>
     </ol>
     
-    <form action="category" method="post">
+    <form>
       <div class="form-group">
         <label for="category">Category</label>
-        <input type="text" class="form-control" id="title" name="title" placeholder="Java" value="${category.title}">
+        <input type="text" class="form-control" id="title" name="title" placeholder="Java" value="">
+        <input type="hidden" id="id" name="id" value="">
       </div>
       
-      <input type="hidden" id="id" name="id" value="${category.id}">
-      <input type="hidden" id="act" name="act" value="${empty category ? 'insert' : 'update'}">
-      
-      <button type="submit" class="btn btn-primary">${empty category ? 'add' : 'update'}</button>
+      <button type="button" class="btn btn-default btn-clear">clear</button>
+      <button type="button" class="btn btn-primary btn-add">add</button>
+
     </form>
     <br>
-    <ul class="list-group">
+    <ul class="list-group" id="category_content">
 
-		<c:forEach var="category" items="${categories}">
-		
-	      <li class="list-group-item"><a href="category?act=select&id=${category.id}">${category.title}</a>
-	
-	        <p class="navbar-right">
-	          <a href="category?act=delete&id=${category.id}"><span class="glyphicon glyphicon-trash">&nbsp;</span></a>
-	        </p>
-	
-	      </li>	
-	
-		</c:forEach>
+		<img src="img/ajax-loader.gif" class="loading" />
 
     </ul>
 
@@ -55,5 +49,10 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			init();
+		});
+	</script>  
 </body>
 </html>

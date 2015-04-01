@@ -1,15 +1,12 @@
 package rssfeedleitor.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +17,7 @@ import rssfeedleitor.bo.CategoryBO;
 import rssfeedleitor.model.Category;
 
 @Singleton
-public class CategoryController extends HttpServlet {
+public class CategoryController extends ServletController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 	
@@ -29,78 +26,103 @@ public class CategoryController extends HttpServlet {
 	@Inject
 	private CategoryBO categoryBO;
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("doGet()...");
-		action(request, response);
-	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("doPost()...");
-		action(request, response);
+	public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		logger.debug("index()...");
+	
+		forward("/category.jsp", request, response);
+		
 	}
 	
-	private void action(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		logger.debug("action()...");
-		
-		String erro = "Erro: <br>";
+	public void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		logger.debug("insert()...");
 		
 		try{
 			
-			String act = ((request.getParameter("act") != null) ? request.getParameter("act") : "");
-			//TODO fix
-//			if(act.isEmpty()){
-//				throw new Exception("No action found!");
-//			}
-			
 			String title = ((request.getParameter("title") != null) ? request.getParameter("title") : "");
-			Integer id = ((request.getParameter("id") != null && !request.getParameter("id").isEmpty()) ? Integer.valueOf(request.getParameter("id")) : 0);
 			
-			logger.debug("act = " + act);
 			logger.debug("title = " + title);
-			logger.debug("id = " + id);
 			
-			Category category = null;
-			
-			if(act.equals("insert")){
-				categoryBO.insert(title);
-			}
-			else if(act.equals("delete")){
-				categoryBO.delete(id);
-			}
-			else if(act.equals("update")){
-				categoryBO.update(id, title);
-			}
-			else if(act.equals("select")){
-				category = categoryBO.findById(id);
-			}
-				
-			request.setAttribute("category", category);
+			categoryBO.insert(title);
 			
 		}
 		catch(Exception e){
-			logger.error("action", e);
+			logger.error("insert", e);
 			
-			erro += e.getMessage() + "<br>";
-			
-			StringWriter errors = new StringWriter();
-			e.printStackTrace(new PrintWriter(errors));
-			erro += errors.toString();
+			printStackTraceToString(e, request);
 			
 		}
 		
-		List<Category> categories = categoryBO.findAll();
+	}
+	
+	public void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		logger.debug("update()...");
+		
+		try{
+			
+			String title = ((request.getParameter("title") != null) ? request.getParameter("title") : "");
+			Integer id = ((request.getParameter("id") != null) ? Integer.valueOf(request.getParameter("id")) : 0);
+			
+			logger.debug("id = " + id);
+			logger.debug("title = " + title);
+			
+			categoryBO.update(id, title);
+			
+		}
+		catch(Exception e){
+			logger.error("update", e);
+			
+			printStackTraceToString(e, request);
+			
+		}
+		
+	}
+	
+	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		logger.debug("delete()...");
+		
+		try{
+			
+			Integer id = ((request.getParameter("id") != null) ? Integer.valueOf(request.getParameter("id")) : 0);
+			
+			logger.debug("id = " + id);
+			
+			categoryBO.delete(id);
+			
+		}
+		catch(Exception e){
+			logger.error("delete", e);
+			
+			printStackTraceToString(e, request);
+			
+		}
+		
+	}
+
+	public void categoryList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		logger.debug("categoryList()...");
+		
+		List<Category> categories = null;
+		
+		try{
+			
+			categories = categoryBO.findAll();
+			
+		}
+		catch(Exception e){
+			logger.error("categoryList", e);
+			
+			printStackTraceToString(e, request);
+			
+		}
+		
 		if(categories == null){
 			categories = Collections.emptyList();
 		}
 		
 		request.setAttribute("categories", categories);
-		request.setAttribute("erro", erro);
 	
-		logger.debug("dispatcher()...");
-		
-		request.getRequestDispatcher("/category.jsp").forward(request, response);
+		forward("/categoryList.jsp", request, response);
 		
 	}
-
 }
