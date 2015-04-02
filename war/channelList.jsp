@@ -4,10 +4,16 @@
 <div class="list-group">
 	<c:if test="${fn:length(channels) > 0}">
     	<c:forEach var="channel" items="${channels}">
-	      <li class="list-group-item"><a href="#" class="upd-channel">${channel.link} <br> ${channel.title} - ${channel.description}<span id="upd_id" style="display: none;">${channel.id}</span><span id="upd_title" style="display: none;">${channel.title}</span></a>
+	      <li class="list-group-item">
+	      <a href="#" class="lnk-update">${channel.link} <br> ${channel.title} - ${channel.description}
+	      	<span id="upd_id" style="display: none;">${channel.id}</span>
+	      	<span id="upd_title" style="display: none;">${channel.title}</span>
+	      	<span id="upd_link" style="display: none;">${channel.link}</span>
+	      	<span id="upd_description" style="display: none;">${channel.description}</span>
+	      </a>
 	
 	        <p class="navbar-right">
-	          <a href="#" class="link-channel"><span class="glyphicon glyphicon-trash">&nbsp;</span><span id="feed_id" style="display: none;">${channel.id}</span></a>
+	          <a href="#" class="link-delete"><span class="glyphicon glyphicon-trash">&nbsp;</span><span id="chan_id" style="display: none;">${channel.id}</span></a>
 	        </p>
 	
 	      </li>    	

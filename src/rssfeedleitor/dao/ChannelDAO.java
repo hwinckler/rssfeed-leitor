@@ -12,9 +12,11 @@ public interface ChannelDAO {
 
 	public Channel findById(Integer id);
 
-	public void updateToDefaultCategory(Integer id, Integer defaultCategoryId);
-
 	public List<Channel> findByCategory(Integer categoryID);
 
 	public void delete(Integer id);
+
+	public void update(Integer id, Integer categoryID);
+
+	public void updateToDefaultCategory(Integer categoryID, Integer defaultCategoryID);
 }

@@ -49,16 +49,6 @@ public class ChannelDAOImpl implements ChannelDAO{
 	}
 
 	@Override
-	public void updateToDefaultCategory(Integer id, Integer defaultCategoryId) {
-		logger.debug("updateToDefaultCategory()...");
-		try(SqlSession session = sqlSessionFactory.openSession()){
-			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
-			channelMapper.updateToDefaultCategory(id, defaultCategoryId);
-			session.commit();
-		}
-	}
-
-	@Override
 	public List<Channel> findByCategory(Integer categoryID) {
 		logger.debug("findByCategory()...");
 		try(SqlSession session = sqlSessionFactory.openSession()){
@@ -73,6 +63,26 @@ public class ChannelDAOImpl implements ChannelDAO{
 		try(SqlSession session = sqlSessionFactory.openSession()){
 			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
 			channelMapper.delete(id);
+			session.commit();
+		}
+	}
+
+	@Override
+	public void update(Integer id, Integer categoryID) {
+		logger.debug("update()...");
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
+			channelMapper.update(id, categoryID);
+			session.commit();
+		}
+	}
+	
+	@Override
+	public void updateToDefaultCategory(Integer categoryID, Integer defaultCategoryID) {
+		logger.debug("update()...");
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
+			channelMapper.updateToDefaultCategory(categoryID, defaultCategoryID);
 			session.commit();
 		}
 	}

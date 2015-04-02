@@ -45,12 +45,16 @@ public interface ChannelMapper {
 	@Select("SELECT * FROM feed where channel_id = #{id}")
 	public List<Feed> getFeeds(Integer id);
 
+	@Update("UPDATE channel set category_id = #{param2} where id = #{param1}")
+	public void update(Integer id, Integer categoryID);
+	
 	@Update("UPDATE channel set category_id = #{param2} where category_id = #{param1}")
-	public void updateToDefaultCategory(Integer id, Integer defaultCategoryId);
+	public void updateToDefaultCategory(Integer categoryID, Integer defaultCategoryID);
 
 	@Select("SELECT * FROM channel where category_id = #{param1}")
 	public List<Channel> findByCategory(Integer categoryID);
 
 	@Delete("DELETE FROM channel WHERE id = #{id}")
 	public void delete(Integer id);
+
 }

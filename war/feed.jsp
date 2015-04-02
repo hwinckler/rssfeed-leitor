@@ -23,27 +23,27 @@
       <li class="active">Feeds</li>
     </ol>
     
-    <form action="feed" method="post" id="form">
+    <form>
       <div class="form-group">
         <label for="feed">Feed</label>
-        <input type="text" class="form-control" id="link" name="link" placeholder="http://site.com/feed" value="${channel.link}" onchange="parseFeed();">
+        <input type="text" class="form-control txt-link" id="link" name="link" placeholder="http://site.com/feed" value=""><span class="link-loading"></span>
         
         <label for="feed">Title</label>
-        <input type="text" class="form-control" id="title" name="title" value="${channel.title}" disabled="disabled">
+        <input type="text" class="form-control" id="title" name="title" value="" disabled="disabled">
         
         <label for="feed">Description</label>
-        <input type="text" class="form-control" id="description" name="description" value="${channel.description}" disabled="disabled">
+        <input type="text" class="form-control" id="description" name="description" value="" disabled="disabled">
                         
         <label class="control-label" for="category">Category</label>
 		<div id="category_content">
 		</div>
+		
+		<input type="hidden" id="id" name="id" value="">
       </div>
 
-		<input type="hidden" id="id" name="id" value="${channel.id}">
-		<input type="hidden" id="category_id" name="category_id" value="${categoryID}">
-		<input type="hidden" id="act" name="act" value="${empty channel.id ? 'insert' : 'update'}">
-
-      <button type="submit" class="btn btn-primary" ${empty channel ? 'disabled=\'disabled\'' : ''}>${empty channel.id ? 'add' : 'update'}</button>
+      <button type="button" class="btn btn-default btn-clear">clear</button>
+      <button type="button" class="btn btn-primary btn-add" disabled="disabled">add</button>
+      
      </form>
     <br>
     <ul class="list-group" id="channel_content">

@@ -28,10 +28,10 @@ public class ChannelBOImpl implements ChannelBO {
 	@Inject
 	private FeedBO feedBO;
 
-	public void updateToDefaultCategory(Integer id, Integer defaultCategoryId) {
+	public void updateToDefaultCategory(Integer id) {
 		logger.debug("updateToDefaultCategory()...");
 		
-		channelDAO.updateToDefaultCategory(id, defaultCategoryId);
+		channelDAO.updateToDefaultCategory(id, Category.DEFAULT_ID);
 
 	}
 
@@ -68,6 +68,13 @@ public class ChannelBOImpl implements ChannelBO {
 		
 		feedBO.deleteByChannel(id);
 		channelDAO.delete(id);
+	}
+
+	@Override
+	public void update(Integer id, Integer categoryID) {
+		logger.debug("update()...");
+		
+		channelDAO.update(id, categoryID);
 	}
 
 }

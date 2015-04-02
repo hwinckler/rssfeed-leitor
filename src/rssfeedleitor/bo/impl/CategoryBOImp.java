@@ -54,13 +54,11 @@ public class CategoryBOImp implements CategoryBO {
 	public void delete(Integer id) throws Exception {
 		logger.debug("delete()...");
 		
-		Integer defaultCategoryId = categoryDAO.findIdFromDefaultCategory();
-		
-		if(id == defaultCategoryId){
+		if(id == Category.DEFAULT_ID){
 			throw new Exception("Default category can't be excluded");
 		}
 		
-		channelBO.updateToDefaultCategory(id, defaultCategoryId);
+		channelBO.updateToDefaultCategory(id);
 
 		categoryDAO.delete(id);
 	}
