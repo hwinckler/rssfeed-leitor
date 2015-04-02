@@ -13,6 +13,8 @@ public class Category {
 	private String title;
 	private Date date;
 	
+	private Integer unread;
+	
 	private List<Channel> channels = new ArrayList<Channel>();
 	
 	public Category() {
@@ -56,6 +58,14 @@ public class Category {
 	
 	public static Category newDefault(){
 		return new Category(Category.DEFAULT, new Date());
+	}
+	
+	public Integer getUnread() {
+		return unread;
+	}
+	
+	public void setUnread(Integer unread) {
+		this.unread = unread;
 	}
 	
 }

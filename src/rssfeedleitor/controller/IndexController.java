@@ -39,7 +39,7 @@ public class IndexController extends ServletController {
 		
 		try{
 			
-			categories = categoryBO.findAll();
+			categories = categoryBO.findAllWithUnRead();
 			
 		}
 		catch(Exception e){

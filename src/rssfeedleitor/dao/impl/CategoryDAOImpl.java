@@ -40,6 +40,16 @@ public class CategoryDAOImpl implements CategoryDAO{
 			return categoryMapper.findAll();
 		}
 	}
+	
+	@Override
+	public List<Category> findAllWithUnRead() {
+		logger.debug("findAllWithUnRead()...");
+		
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			CategoryMapper categoryMapper = session.getMapper(CategoryMapper.class);
+			return categoryMapper.findAllWithUnRead();
+		}
+	}
 
 	@Override
 	public Category findById(Integer id) {

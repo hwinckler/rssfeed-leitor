@@ -19,4 +19,6 @@ public interface CategoryDAO {
 		public void update(Integer id, String title);
 
 		public Integer findIdFromDefaultCategory();
+
+		List<Category> findAllWithUnRead();
 }

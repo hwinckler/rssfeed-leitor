@@ -57,6 +57,8 @@ function markAsRead(feedID) {
 		},
 		success : function(data) {
 
+			var categoryID = $('.lnk-category active').attr('id');
+			alert('categoryID: ' + categoryID);
 		},
 	});
 

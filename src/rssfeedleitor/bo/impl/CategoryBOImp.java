@@ -39,6 +39,12 @@ public class CategoryBOImp implements CategoryBO {
 	}
 
 	@Override
+	public List<Category> findAllWithUnRead() {
+		logger.debug("findAllWithUnRead()...");
+		return categoryDAO.findAllWithUnRead();
+	}
+	
+	@Override
 	public List<Category> findAll() {
 		logger.debug("findAll()...");
 		return categoryDAO.findAll();

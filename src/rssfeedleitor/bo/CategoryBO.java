@@ -15,4 +15,6 @@ public interface CategoryBO {
 	public void delete(Integer id) throws Exception;
 
 	public void update(Integer id, String title);
+
+	List<Category> findAllWithUnRead();
 }

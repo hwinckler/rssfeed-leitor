@@ -21,7 +21,7 @@
       <div class="col-md-4">
         <div class="list-group categories" id="99">
   			<c:forEach var="category" items="${categories}" varStatus="status">
-            	<a href="#" class="list-group-item ${status.first ? 'active' : '' } lnk-category" id="${category.id}">${category.title} <span class="badge">14</span><span id="cat_id" style="display: none;">${category.id}</span></a>
+            	<a href="#" class="list-group-item ${status.first ? 'active' : '' } lnk-category" id="${category.id}">${category.title} <span class="badge">${category.unread}</span><span id="cat_id" style="display: none;">${category.id}</span></a>
   			</c:forEach>
         </div>
       </div>

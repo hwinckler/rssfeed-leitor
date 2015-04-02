@@ -22,6 +22,14 @@ public interface CategoryMapper {
 	
 	@Select("SELECT * FROM category ORDER BY id DESC")
 	public List<Category> findAll();
+	
+	@Select("SELECT c.id, c.title, (SELECT count(*) FROM feed f INNER JOIN channel ch ON(f.channel_id = ch.id) WHERE f.visualized = 0 AND ch.category_id = c.id) as unread FROM category c ")
+	@Results(value = {
+			@Result(property="id", column="id"),
+			@Result(property="title", column="title"),
+			@Result(property="unread", column="unread")
+            })	
+	public List<Category> findAllWithUnRead();
 
 	@Select("SELECT * FROM category WHERE id = #{id}")
 	@Results(value = {
