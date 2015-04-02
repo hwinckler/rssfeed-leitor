@@ -57,8 +57,10 @@ function markAsRead(feedID) {
 		},
 		success : function(data) {
 
-			var categoryID = $('.lnk-category active').attr('id');
-			alert('categoryID: ' + categoryID);
+			var total = $('.lnk-category.active').find('.badge').text();
+			alert('total: ' + total);
+			$('.lnk-category.active').find('.badge').text(total - 1);
+			//alert('categoryID: ' + categoryID);
 		},
 	});
 
