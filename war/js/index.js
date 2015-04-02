@@ -28,14 +28,18 @@ function feedList(categoryID) {
 
 			$('.lnk-feed').click(function(event) {
 
-				$(this).removeClass('list-group-item-info');
 
 				var link = $(this).find('#link').text();
 				var feedID = $(this).find('#feed_id').text();
 
 				window.open(link, '_blank');
+				
+				if($(this).hasClass('list-group-item-info')){
+					
+					$(this).removeClass('list-group-item-info');
 
-				markAsRead(feedID);
+					markAsRead(feedID);
+				}
 
 			});
 		},
@@ -58,9 +62,7 @@ function markAsRead(feedID) {
 		success : function(data) {
 
 			var total = $('.lnk-category.active').find('.badge').text();
-			alert('total: ' + total);
 			$('.lnk-category.active').find('.badge').text(total - 1);
-			//alert('categoryID: ' + categoryID);
 		},
 	});
 
