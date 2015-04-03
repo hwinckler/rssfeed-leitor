@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Feed {
 	
+	public static final int MAX_DESCRIPTION = 255;
 	private Integer id;
 	private String title;
 	private String description;
@@ -23,6 +24,15 @@ public class Feed {
 		this.pubDate = pubDate;
 		this.link = link;
 		this.channel = channel;
+		this.visualized = visualized;
+	}
+	
+	public Feed(String title, String description, Date pubDate, String link, Boolean visualized) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.pubDate = pubDate;
+		this.link = link;
 		this.visualized = visualized;
 	}
 	

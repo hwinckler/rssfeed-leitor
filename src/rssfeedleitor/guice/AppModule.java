@@ -19,6 +19,7 @@ import rssfeedleitor.dao.impl.ChannelDAOImpl;
 import rssfeedleitor.dao.impl.FeedDAOImpl;
 import rssfeedleitor.reader.RSSFeed;
 import rssfeedleitor.reader.RSSFeedParser;
+import rssfeedleitor.reader.RSSFeedParserRome;
 
 import com.google.inject.AbstractModule;
 
@@ -35,7 +36,7 @@ public class AppModule extends AbstractModule {
 		  bind(FeedDAO.class).to(FeedDAOImpl.class);
 		  bind(FeedBO.class).to(FeedBOImpl.class);
 		  
-		  bind(RSSFeed.class).to(RSSFeedParser.class);
+		  bind(RSSFeed.class).to(RSSFeedParserRome.class);
 		  bind(RSSFeedBO.class).to(RSSFeedBOImpl.class);
 		  
 		  bind(SqlSessionFactory.class).toProvider(SqlSessionFactoryProvider.class);
