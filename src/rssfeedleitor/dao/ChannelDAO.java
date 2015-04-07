@@ -19,4 +19,6 @@ public interface ChannelDAO {
 	public void update(Integer id, Integer categoryID);
 
 	public void updateToDefaultCategory(Integer categoryID, Integer defaultCategoryID);
+
+	public List<Channel> findAllWithLastPubDate();
 }

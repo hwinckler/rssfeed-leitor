@@ -87,4 +87,13 @@ public class ChannelDAOImpl implements ChannelDAO{
 		}
 	}
 
+	@Override
+	public List<Channel> findAllWithLastPubDate() {
+		logger.debug("findAllWithLastPubDate()...");
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			ChannelMapper channelMapper = session.getMapper(ChannelMapper.class);
+			return channelMapper.findAllWithLastPubDate();
+		}
+	}
+
 }

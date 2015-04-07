@@ -28,6 +28,7 @@ public class ChannelBOImpl implements ChannelBO {
 	@Inject
 	private FeedBO feedBO;
 
+
 	public void updateToDefaultCategory(Integer id) {
 		logger.debug("updateToDefaultCategory()...");
 		
@@ -75,6 +76,35 @@ public class ChannelBOImpl implements ChannelBO {
 		logger.debug("update()...");
 		
 		channelDAO.update(id, categoryID);
+	}
+
+	@Override
+	public Integer synchronize() throws Exception {
+		logger.debug("synchronize()...");
+		
+		List<Feed> feeds = null;
+		Integer countUnRead = 0;
+		
+		List<Channel> channels = channelDAO.findAllWithLastPubDate();
+		
+		for (Channel channel : channels) {
+			
+			logger.debug("link: " + channel.getLink() + " lastPubDate: " + channel.getLastPubDate());
+			
+			if((feeds = (rssFeedBO.parse(channel.getLink(), channel.getLastPubDate())).getFeeds()).size() > 0){
+				
+				for (Feed feed : feeds) {
+					feed.setChannel(channel);
+					
+					logger.debug("title: " + feed.getTitle() + " pubDate: " + feed.getPubDate());
+					feedBO.insert(feed);
+					countUnRead++;
+				}
+			}
+			
+		}
+		
+		return countUnRead;
 	}
 
 }

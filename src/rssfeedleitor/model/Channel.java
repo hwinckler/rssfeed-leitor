@@ -15,6 +15,7 @@ public class Channel {
 	
 	private Category category;
 	private List<Feed> feeds = new ArrayList<Feed>();
+	private Date lastPubDate;
 	
 	public Channel() {
 
@@ -102,5 +103,13 @@ public class Channel {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Date getLastPubDate() {
+		return lastPubDate;
+	}
+	
+	public void setLastPubDate(Date lastPubDate) {
+		this.lastPubDate = lastPubDate;
 	}
 }

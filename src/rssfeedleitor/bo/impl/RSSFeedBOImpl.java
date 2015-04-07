@@ -3,6 +3,7 @@ package rssfeedleitor.bo.impl;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -24,6 +25,13 @@ public class RSSFeedBOImpl implements RSSFeedBO {
 	public Channel parse(String link) throws Exception {
 		logger.debug("parse()...");
 		
+		return parse(link, null);
+	}
+	
+	@Override
+	public Channel parse(String link, Date pubDate) throws Exception {
+		logger.debug("parse()...");
+		
 		if(link == null ||link.isEmpty()){
 			throw new Exception("Link cannot be empty");
 		}
@@ -36,7 +44,7 @@ public class RSSFeedBOImpl implements RSSFeedBO {
 		}
 					
 		try(InputStream stream = httpConnection.getInputStream()){
-			Channel channel = rssFeed.parse(stream);
+			Channel channel = rssFeed.parse(stream, pubDate);
 			channel.setLink(link);
 			return channel;
 		}

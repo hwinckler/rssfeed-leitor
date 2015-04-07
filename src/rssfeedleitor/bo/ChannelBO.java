@@ -18,4 +18,6 @@ public interface ChannelBO {
 
 	void update(Integer id, Integer categoryID);
 
+	Integer synchronize() throws Exception;
+
 }

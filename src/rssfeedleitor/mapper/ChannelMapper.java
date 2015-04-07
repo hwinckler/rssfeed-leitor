@@ -57,4 +57,7 @@ public interface ChannelMapper {
 	@Delete("DELETE FROM channel WHERE id = #{id}")
 	public void delete(Integer id);
 
+	@Select("SELECT ch.id, ch.title, ch.description, ch.link, (SELECT max(f.pubDate) FROM feed f WHERE f.channel_id = ch.id) as lastPubDate FROM channel ch")
+	public List<Channel> findAllWithLastPubDate();
+
 }

@@ -3,6 +3,8 @@ package rssfeedleitor.controller;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -38,6 +40,24 @@ public class IndexController extends ServletController {
 		List<Category> categories = null;
 		
 		try{
+			
+//			Thread newThread = com.google.appengine.api.ThreadManager.createThreadForCurrentRequest(new Runnable() {
+//				
+//				@Override
+//				public void run() {
+//					try {
+//					      while (true) {
+//					        System.out.println("aaaaaaaaaaaaaa");
+//					        Thread.sleep(30000);
+//					      }
+//					    } catch (InterruptedException ex) {
+//					      throw new RuntimeException("Interrupted in loop:", ex);
+//					    }
+//					
+//				}
+//			});
+//			
+//			newThread.start();
 			
 			categories = categoryBO.findAllWithUnRead();
 			

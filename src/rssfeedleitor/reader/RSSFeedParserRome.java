@@ -25,6 +25,12 @@ public class RSSFeedParserRome implements RSSFeed{
 	@Override
 	public Channel parse(InputStream stream)throws RSSFeedParserException {
 
+		return parse(stream, null);
+	}
+
+	@Override
+	public Channel parse(InputStream stream, Date pubDate)throws RSSFeedParserException {
+
 		Channel channel = null;
 		
 		try {
@@ -36,12 +42,9 @@ public class RSSFeedParserRome implements RSSFeed{
 				
 				List<SyndEntry> entries = feed.getEntries();
 				for (SyndEntry entry : entries) {
-					channel.getFeeds().add(new Feed(channel, entry.getTitle(), (entry.getDescription() != null) ? StringUtils.abbreviate(entry.getDescription().getValue().replaceAll("\\<.*?\\>", ""), Feed.MAX_DESCRIPTION) : "", entry.getPublishedDate(), entry.getLink(), false));
-					
-					//channel.getFeeds().add(new Feed(channel, entry.getTitle(), (entry.getDescription() != null) ? StringUtils.abbreviate(entry.getDescription().getValue().replaceAll("\\<.*?\\>", ""), Feed.MAX_DESCRIPTION) : "", entry.getPublishedDate(), entry.getLink(), false));
-					//channel.getFeeds().add(new Feed(channel, entry.getTitle(), (entry.getDescription() != null) ? StringUtils.abbreviate(Jsoup.parse(entry.getDescription().getValue()).text(), Feed.MAX_DESCRIPTION) : "", entry.getPublishedDate(), entry.getLink(), false));
-					
-					
+					if(pubDate == null || (pubDate != null && entry.getPublishedDate().after(pubDate))){
+						channel.getFeeds().add(new Feed(channel, entry.getTitle(), (entry.getDescription() != null) ? StringUtils.abbreviate(entry.getDescription().getValue().replaceAll("\\<.*?\\>", ""), Feed.MAX_DESCRIPTION) : "", entry.getPublishedDate(), entry.getLink(), false));
+					}
 				}
 			}
 			
@@ -53,5 +56,4 @@ public class RSSFeedParserRome implements RSSFeed{
 		
 		return channel;
 	}
-
 }

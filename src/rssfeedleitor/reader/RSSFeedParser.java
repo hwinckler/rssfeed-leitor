@@ -107,4 +107,10 @@ public class RSSFeedParser implements RSSFeed{
 	  private String getCharacterData(XMLEvent nextEvent)throws XMLStreamException {
 		return (nextEvent instanceof Characters) ? nextEvent.asCharacters().getData() : ""; 
 	  }
+
+	@Override
+	public Channel parse(InputStream stream, Date pubDate) throws RSSFeedParserException {
+		
+		return parse(stream);
+	}
 }

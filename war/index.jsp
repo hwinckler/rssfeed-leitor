@@ -19,15 +19,24 @@
 
     <div class="row">
       <div class="col-md-4">
-        <div class="list-group categories" id="99">
+
+
+        <div class="list-group categories">
   			<c:forEach var="category" items="${categories}" varStatus="status">
             	<a href="#" class="list-group-item ${status.first ? 'active' : '' } lnk-category" id="${category.id}">${category.title} <span class="badge">${category.unread}</span><span id="cat_id" style="display: none;">${category.id}</span></a>
   			</c:forEach>
         </div>
+
       </div>
       
-      <div class="col-md-8" id="feed_content">
-		<img src="img/ajax-loader.gif" class="loading" />
+      <div class="col-md-8">
+                        <p class="">
+                  <a class="btn btn-primary sync-all" href="#" role="button">Sync All</a><span id="sync_loading"></span>
+                </p>      
+      <div id="feed_content">
+      <img src="img/ajax-loader.gif" class="loading" />
+      </div>
+		
       </div>
     </div>
 
