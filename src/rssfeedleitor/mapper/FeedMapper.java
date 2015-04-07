@@ -59,5 +59,8 @@ public interface FeedMapper {
 	public List<Feed> findByCategory(Integer categoryID);
 
 	@Update("UPDATE feed set visualized = true WHERE id = #{para1}")
-	public void markAsRead(Integer feedID);	
+	public void markAsRead(Integer feedID);
+
+	@Update("UPDATE feed f INNER JOIN channel ch ON(f.channel_id = ch.id) set f.visualized = true WHERE ch.category_id = #{para1}")
+	public void markAllAsRead(Integer categoryID);	
 }

@@ -16,4 +16,6 @@ public interface FeedBO {
 
 	void markAsRead(Integer feedID);
 
+	void markAllAsRead(Integer categoryID);
+
 }

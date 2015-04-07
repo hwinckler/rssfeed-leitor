@@ -119,7 +119,27 @@ public class IndexController extends ServletController {
 			
 		}
 		catch(Exception e){
-			logger.error("feedList", e);
+			logger.error("markAsRead", e);
+
+			printStackTraceToString(e, request);
+		}
+	
+	}
+	
+	public void markAllAsRead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.debug("markAllAsRead()...");
+		
+		try{
+			
+			Integer categoryID = ((request.getParameter("categoryID") != null && !request.getParameter("categoryID").isEmpty()) ? Integer.valueOf(request.getParameter("categoryID")) : 0);
+			
+			logger.debug("categoryID = " + categoryID);
+			
+			feedBO.markAllAsRead(categoryID);
+			
+		}
+		catch(Exception e){
+			logger.error("markAllAsRead", e);
 
 			printStackTraceToString(e, request);
 		}

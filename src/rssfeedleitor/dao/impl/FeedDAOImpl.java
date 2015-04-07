@@ -83,4 +83,13 @@ public class FeedDAOImpl implements FeedDAO{
 		}
 	}
 
+	@Override
+	public void markAllAsRead(Integer categoryID) {
+		logger.debug("markAllAsRead()...");
+		try(SqlSession session = sqlSessionFactory.openSession()){
+			FeedMapper feedMapper = session.getMapper(FeedMapper.class);
+			feedMapper.markAllAsRead(categoryID);
+			session.commit();
+		}
+	}
 }

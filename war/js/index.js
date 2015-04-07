@@ -19,7 +19,7 @@ function init() {
 			},
 			success : function(data) {
 				if(data != '' && data > 0){
-					location.href='index'
+					location.href='index';
 				}
 				else{
 					$('#sync_loading').html('');
@@ -31,6 +31,27 @@ function init() {
 		});
 
 	});	
+	
+	$('.mark-all-as-read').click(function(event) {
+
+		var categoryID = $('.lnk-category.active').attr('id');
+
+		$.ajax({
+			url : 'index',
+			type : 'POST',
+			data : {
+				'act' : 'markAllAsRead',
+				'categoryID' : categoryID
+			},
+			success : function(data) {
+				location.href='index';
+			},
+			beforeSend : function() {
+				$('#sync_loading').html(loading);
+			},
+		});
+
+	});
 
 	var categoryID = $('.categories a:first-child').attr('id');
 

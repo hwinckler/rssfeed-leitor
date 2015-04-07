@@ -31,6 +31,7 @@
       
       <div class="col-md-8">
                         <p class="">
+                  <a class="btn btn-primary mark-all-as-read" href="#" role="button">Mark All as Read</a>
                   <a class="btn btn-primary sync-all" href="#" role="button">Sync All</a><span id="sync_loading"></span>
                 </p>      
       <div id="feed_content">

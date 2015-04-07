@@ -48,4 +48,10 @@ public class FeedBOImpl implements FeedBO {
 		feedDAO.markAsRead(feedID);
 	}
 
+	@Override
+	public void markAllAsRead(Integer categoryID) {
+		logger.debug("markAllAsRead()...");
+		feedDAO.markAllAsRead(categoryID);		
+	}
+
 }
