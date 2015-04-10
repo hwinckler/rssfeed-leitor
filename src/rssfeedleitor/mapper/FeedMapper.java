@@ -55,7 +55,7 @@ public interface FeedMapper {
 	@Delete("DELETE FROM feed WHERE channel_id = #{id}")
 	public void deleteByChannel(Integer id);
 
-	@Select("SELECT * FROM feed f inner join channel c on (f.channel_id = c.id) WHERE c.category_id = #{param1} ORDER BY f.pubDate")
+	@Select("SELECT * FROM feed f inner join channel c on (f.channel_id = c.id) WHERE c.category_id = #{param1} ORDER BY f.pubDate DESC")
 	public List<Feed> findByCategory(Integer categoryID);
 
 	@Update("UPDATE feed set visualized = true WHERE id = #{para1}")
