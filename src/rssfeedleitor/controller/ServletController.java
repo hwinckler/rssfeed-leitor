@@ -50,7 +50,7 @@ public class ServletController extends HttpServlet {
 	protected void forward(String path, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("forward()...");
 		
-		getServletContext().getRequestDispatcher(path).forward(request,response);
+		getServletContext().getRequestDispatcher("/pages" + path).forward(request,response);
 	} 
 
 	protected void printStackTraceToString(Exception e, HttpServletRequest request) throws ServletException, IOException {

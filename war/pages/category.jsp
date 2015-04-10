@@ -15,7 +15,7 @@
 <body>
   <div class="container">
 
-	<c:import url="commons/header.jsp?opt=category" />
+	<c:import url="header.jsp?opt=category" />
     
     <ol class="breadcrumb">
       <li><a href="index">Home</a></li>

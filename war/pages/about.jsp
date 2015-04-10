@@ -9,14 +9,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>RSSFeed-Leitor</title>
   <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-  <link href="css/normalize.css" rel="stylesheet" media="screen">
+  <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="../css/normalize.css" rel="stylesheet" media="screen">
 
 </head>
 <body>
   <div class="container">
 
-	<c:import url="commons/header.jsp?opt=about" />
+	<c:import url="header.jsp?opt=about" />
 
     <ol class="breadcrumb">
       <li><a href="index">Home</a></li>
@@ -33,6 +33,6 @@
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
 </body>
 </html>

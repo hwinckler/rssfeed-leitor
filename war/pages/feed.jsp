@@ -16,7 +16,7 @@
 <body>
   <div class="container">
 
-	<c:import url="commons/header.jsp?opt=feed" />
+	<c:import url="header.jsp?opt=feed" />
     
     <ol class="breadcrumb">
       <li><a href="index">Home</a></li>
