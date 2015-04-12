@@ -20,7 +20,9 @@
 	if(userService.getCurrentUser() != null){
 		
 %>
-<jsp:forward page="/index"></jsp:forward>
+<script type="text/javascript">
+location.href = "index";
+</script>
 <%
 		
 	}

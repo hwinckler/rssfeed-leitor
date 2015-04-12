@@ -13,7 +13,7 @@ import com.google.inject.servlet.ServletModule;
 class MyServletModule extends ServletModule {
 	
 	  protected void configureServlets() {
-		  filter("/index").through(UserFilter.class);
+		  filter("/*").through(UserFilter.class);
 		  serve("/hello").with(HelloController.class);
 		  serve("/about").with(AboutController.class);
 		  serve("/category").with(CategoryController.class);

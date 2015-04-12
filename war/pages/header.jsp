@@ -34,7 +34,7 @@
                   <a href="feed">Feed</a>
         
           </li>          
-          <li><a href="<%= userService.createLogoutURL(request.getRequestURI()) %>"><%= userService.getCurrentUser().getNickname() %></a></li>
+          <li><a href="<%= userService.createLogoutURL("/signin.jsp") %>"><%= userService.getCurrentUser().getNickname() %></a></li>
             </ul>
         </div><!--/.nav-collapse -->
       </div><!--/.container-fluid -->
