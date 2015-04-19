@@ -42,6 +42,7 @@ public class RSSFeedParserRome implements RSSFeed{
 				
 				List<SyndEntry> entries = feed.getEntries();
 				for (SyndEntry entry : entries) {
+			
 					if(pubDate == null || (pubDate != null && entry.getPublishedDate().after(pubDate))){
 						channel.getFeeds().add(new Feed(channel, entry.getTitle(), (entry.getDescription() != null) ? StringUtils.abbreviate(entry.getDescription().getValue().replaceAll("\\<.*?\\>", ""), Feed.MAX_DESCRIPTION) : "", entry.getPublishedDate(), entry.getLink(), false));
 					}

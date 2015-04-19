@@ -79,7 +79,7 @@ public class ChannelBOImpl implements ChannelBO {
 	}
 
 	@Override
-	public Integer synchronize() throws Exception {
+	public Integer synchronize() {
 		logger.debug("synchronize()...");
 		
 		List<Feed> feeds = null;
@@ -91,17 +91,24 @@ public class ChannelBOImpl implements ChannelBO {
 			
 			logger.debug("link: " + channel.getLink() + " lastPubDate: " + channel.getLastPubDate());
 			
-			if((feeds = (rssFeedBO.parse(channel.getLink(), channel.getLastPubDate())).getFeeds()).size() > 0){
+			try{
 				
-				for (Feed feed : feeds) {
-					feed.setChannel(channel);
+				if((feeds = (rssFeedBO.parse(channel.getLink(), channel.getLastPubDate())).getFeeds()).size() > 0){
 					
-					logger.debug("title: " + feed.getTitle() + " pubDate: " + feed.getPubDate());
-					feedBO.insert(feed);
-					countUnRead++;
+					for (Feed feed : feeds) {
+						feed.setChannel(channel);
+						
+						logger.debug("title: " + feed.getTitle() + " pubDate: " + feed.getPubDate());
+						feedBO.insert(feed);
+						countUnRead++;
+					}
 				}
+				
 			}
-			
+			catch(Exception e){
+				logger.error("failed to parse channel: " + channel.getLink());
+			}
+		
 		}
 		
 		return countUnRead;
