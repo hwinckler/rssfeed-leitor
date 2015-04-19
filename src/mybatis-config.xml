@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<environments default="development">
+	<environments default="test">
 		<environment id="production">
 			<transactionManager type="JDBC" />
             <!--  connecting to Cloud SQL -->
@@ -35,5 +35,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper class="rssfeedleitor.mapper.CategoryMapper" />
 		<mapper class="rssfeedleitor.mapper.ChannelMapper" />
 		<mapper class="rssfeedleitor.mapper.FeedMapper" />
+		<mapper class="rssfeedleitor.mapper.UserMapper" />
 	</mappers>
 </configuration>

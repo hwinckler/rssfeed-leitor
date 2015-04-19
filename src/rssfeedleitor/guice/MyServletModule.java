@@ -4,7 +4,6 @@ import rssfeedleitor.controller.AboutController;
 import rssfeedleitor.controller.CategoryController;
 import rssfeedleitor.controller.ChannelController;
 import rssfeedleitor.controller.FeedController;
-import rssfeedleitor.controller.HelloController;
 import rssfeedleitor.controller.IndexController;
 import rssfeedleitor.filter.UserFilter;
 
@@ -14,7 +13,6 @@ class MyServletModule extends ServletModule {
 	
 	  protected void configureServlets() {
 		  filter("/*").through(UserFilter.class);
-		  serve("/hello").with(HelloController.class);
 		  serve("/about").with(AboutController.class);
 		  serve("/category").with(CategoryController.class);
 		  serve("/feed").with(FeedController.class);

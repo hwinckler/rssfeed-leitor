@@ -3,22 +3,23 @@ package rssfeedleitor.dao;
 import java.util.List;
 
 import rssfeedleitor.model.Category;
+import rssfeedleitor.model.User;
 
 public interface CategoryDAO {
 
 		public void insert(Category category);
 
-		public List<Category> findAll();
+		public List<Category> findAll(User user);
 
-		public Category findById(Integer id);
+		public Category find(Category category);
 
-		public Category findByTitle(String title);
+		public void delete(Category category);
 
-		public void delete(Integer id);
+		public void update(Category category);
 
-		public void update(Integer id, String title);
+		public Category findDefaultCategory(User user);
 
-		public Integer findIdFromDefaultCategory();
+		List<Category> findAllWithUnRead(User user);
 
-		List<Category> findAllWithUnRead();
+		public Category findById(Integer id, User user);
 }

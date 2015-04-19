@@ -17,7 +17,7 @@ import rssfeedleitor.model.Feed;
 
 public class ChannelBOImpl implements ChannelBO {
 
-	private static final Logger logger = LoggerFactory.getLogger(CategoryBOImp.class);
+	private static final Logger logger = LoggerFactory.getLogger(CategoryBOImpl.class);
 
 	@Inject
 	private ChannelDAO channelDAO;

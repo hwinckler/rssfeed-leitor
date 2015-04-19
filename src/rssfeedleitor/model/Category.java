@@ -7,11 +7,11 @@ import java.util.List;
 public class Category {
 
 	public final static String DEFAULT = "Default";
-	public final static Integer DEFAULT_ID = 1;
 	
 	private Integer id;
 	private String title;
 	private Date date;
+	private User user;
 	
 	private Integer unread;
 	
@@ -20,14 +20,11 @@ public class Category {
 	public Category() {
 	}
 
-	public Category(Integer id){
-		this.id = id;
-	}
-	
-	public Category(String title, Date date) {
+	public Category(User user, String title) {
 		super();
 		this.title = title;
-		this.date = date;
+		this.date = new Date();
+		this.user = user;
 	}
 	public Integer getId() {
 		return id;
@@ -56,8 +53,8 @@ public class Category {
 		this.channels = channels;
 	}
 	
-	public static Category newDefault(){
-		return new Category(Category.DEFAULT, new Date());
+	public static Category newDefault(User user){
+		return new Category(user, Category.DEFAULT);
 	}
 	
 	public Integer getUnread() {
@@ -68,4 +65,11 @@ public class Category {
 		this.unread = unread;
 	}
 	
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

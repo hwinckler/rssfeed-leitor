@@ -13,6 +13,7 @@ public class Feed {
 	private Boolean visualized = Boolean.FALSE;
 	
 	private Channel channel;
+	private User user;
 	
 	public Feed() {
 	}
@@ -83,5 +84,12 @@ public class Feed {
 	
 	public void setVisualized(Boolean visualized) {
 		this.visualized = visualized;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

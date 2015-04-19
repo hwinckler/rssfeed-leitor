@@ -4,14 +4,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import rssfeedleitor.bo.UserBO;
+import rssfeedleitor.model.User;
+
+import com.google.appengine.api.users.UserServiceFactory;
 
 @Singleton
 public class ServletController extends HttpServlet {
@@ -19,6 +26,9 @@ public class ServletController extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(ServletController.class);
 	
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private UserBO userBO;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("doGet()...");
@@ -63,5 +73,32 @@ public class ServletController extends HttpServlet {
 		erro += errors.toString();
 		
 		request.setAttribute("erro", erro);
+	}
+	
+	public User getUserLogged(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+		HttpSession session = request.getSession();
+		
+		User user = (User) session.getAttribute("user");
+		if(user == null){
+
+			com.google.appengine.api.users.User currentUser = UserServiceFactory.getUserService().getCurrentUser();
+			if(currentUser == null){
+				forward("/signin.jsp", request, response);
+			}
+			else{
+				try {
+					user = userBO.createsNotExist(new User(currentUser.getEmail()));
+					session.setAttribute("user", user);
+					
+				} catch (Exception e) {
+					logger.error("getUserLogged", e);
+					throw new ServletException(e.getMessage());
+				}
+			}
+			
+		}
+		
+		return user;
 	}
 }
