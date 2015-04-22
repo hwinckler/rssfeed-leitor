@@ -2,28 +2,25 @@ package rssfeedleitor.guice;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import rssfeedleitor.bo.CategoryBO;
-import rssfeedleitor.bo.ChannelBO;
-import rssfeedleitor.bo.FeedBO;
-import rssfeedleitor.bo.RSSFeedBO;
-import rssfeedleitor.bo.UserBO;
-import rssfeedleitor.bo.impl.CategoryBOImpl;
-import rssfeedleitor.bo.impl.ChannelBOImpl;
-import rssfeedleitor.bo.impl.FeedBOImpl;
-import rssfeedleitor.bo.impl.RSSFeedBOImpl;
-import rssfeedleitor.bo.impl.UserBOImpl;
-import rssfeedleitor.dao.CategoryDAO;
-import rssfeedleitor.dao.ChannelDAO;
-import rssfeedleitor.dao.FeedDAO;
-import rssfeedleitor.dao.UserDAO;
+import rssfeedleitor.category.bo.CategoryBO;
+import rssfeedleitor.category.bo.impl.CategoryBOImpl;
+import rssfeedleitor.category.dao.CategoryDAO;
+import rssfeedleitor.category.dao.impl.CategoryDAOImpl;
+import rssfeedleitor.channel.bo.ChannelBO;
+import rssfeedleitor.channel.bo.impl.ChannelBOImpl;
+import rssfeedleitor.channel.dao.ChannelDAO;
+import rssfeedleitor.channel.dao.impl.ChannelDAOImpl;
 import rssfeedleitor.dao.factory.SqlSessionFactoryProvider;
-import rssfeedleitor.dao.impl.CategoryDAOImpl;
-import rssfeedleitor.dao.impl.ChannelDAOImpl;
-import rssfeedleitor.dao.impl.FeedDAOImpl;
-import rssfeedleitor.dao.impl.UserDAOImpl;
+import rssfeedleitor.feed.bo.FeedBO;
+import rssfeedleitor.feed.bo.impl.FeedBOImpl;
+import rssfeedleitor.feed.dao.FeedDAO;
+import rssfeedleitor.feed.dao.impl.FeedDAOImpl;
 import rssfeedleitor.reader.RSSFeed;
-import rssfeedleitor.reader.RSSFeedParser;
 import rssfeedleitor.reader.RSSFeedParserRome;
+import rssfeedleitor.user.bo.UserBO;
+import rssfeedleitor.user.bo.impl.UserBOImpl;
+import rssfeedleitor.user.dao.UserDAO;
+import rssfeedleitor.user.dao.impl.UserDAOImpl;
 
 import com.google.inject.AbstractModule;
 
@@ -41,7 +38,6 @@ public class AppModule extends AbstractModule {
 		  bind(FeedBO.class).to(FeedBOImpl.class);
 		  
 		  bind(RSSFeed.class).to(RSSFeedParserRome.class);
-		  bind(RSSFeedBO.class).to(RSSFeedBOImpl.class);
 		  
 		  bind(UserDAO.class).to(UserDAOImpl.class);
 		  bind(UserBO.class).to(UserBOImpl.class);

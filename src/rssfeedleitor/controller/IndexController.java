@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import rssfeedleitor.bo.CategoryBO;
-import rssfeedleitor.bo.FeedBO;
-import rssfeedleitor.model.Category;
-import rssfeedleitor.model.Feed;
+import rssfeedleitor.category.bo.CategoryBO;
+import rssfeedleitor.category.model.Category;
+import rssfeedleitor.feed.bo.FeedBO;
+import rssfeedleitor.feed.model.Feed;
 
 @Singleton
 public class IndexController extends ServletController {
@@ -39,7 +39,7 @@ public class IndexController extends ServletController {
 		
 		try{
 			
-			categories = categoryBO.findAllWithUnRead();
+			categories = categoryBO.findAllWithUnRead(getUserLogged(request, response));
 			
 		}
 		catch(Exception e){
@@ -70,7 +70,7 @@ public class IndexController extends ServletController {
 			
 			logger.debug("categoryID = " + categoryID);
 			
-			feeds = feedBO.findByCategory(categoryID);
+			feeds = feedBO.findByCategory(categoryID, getUserLogged(request, response));
 			
 		}
 		catch(Exception e){
@@ -95,7 +95,7 @@ public class IndexController extends ServletController {
 			
 			logger.debug("feedID = " + feedID);
 			
-			feedBO.markAsRead(feedID);
+			feedBO.markAsRead(feedID, getUserLogged(request, response));
 			
 		}
 		catch(Exception e){
@@ -115,7 +115,7 @@ public class IndexController extends ServletController {
 			
 			logger.debug("categoryID = " + categoryID);
 			
-			feedBO.markAllAsRead(categoryID);
+			feedBO.markAllAsRead(categoryID, getUserLogged(request, response));
 			
 		}
 		catch(Exception e){

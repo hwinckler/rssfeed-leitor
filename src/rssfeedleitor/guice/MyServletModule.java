@@ -1,10 +1,10 @@
 package rssfeedleitor.guice;
 
+import rssfeedleitor.category.controller.CategoryController;
+import rssfeedleitor.channel.controller.ChannelController;
 import rssfeedleitor.controller.AboutController;
-import rssfeedleitor.controller.CategoryController;
-import rssfeedleitor.controller.ChannelController;
-import rssfeedleitor.controller.FeedController;
 import rssfeedleitor.controller.IndexController;
+import rssfeedleitor.feed.controller.FeedController;
 import rssfeedleitor.filter.UserFilter;
 
 import com.google.inject.servlet.ServletModule;

@@ -15,8 +15,9 @@ import javax.xml.stream.events.XMLEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import rssfeedleitor.model.Channel;
-import rssfeedleitor.model.Feed;
+import rssfeedleitor.channel.model.Channel;
+import rssfeedleitor.feed.model.Feed;
+import rssfeedleitor.user.model.User;
 
 public class RSSFeedParser implements RSSFeed{
 
@@ -26,7 +27,7 @@ public class RSSFeedParser implements RSSFeed{
 	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US);
 
 	@Override
-	public Channel parse(InputStream stream)throws RSSFeedParserException {
+	public Channel parse(InputStream stream, User user)throws RSSFeedParserException {
 
 		Channel channel = null;
 		XMLEventReader eventReader = null;
@@ -77,7 +78,7 @@ public class RSSFeedParser implements RSSFeed{
 					
 					if (event.asEndElement().getName().getLocalPart().equalsIgnoreCase("item")) {
 
-						Feed feed = new Feed(channel, title, description, pubDate.getTime(), link, Boolean.FALSE);
+						Feed feed = new Feed(user, channel, title, description, pubDate.getTime(), link, Boolean.FALSE);
 						channel.getFeeds().add(feed);
 
 						event = eventReader.nextEvent();
@@ -109,8 +110,8 @@ public class RSSFeedParser implements RSSFeed{
 	  }
 
 	@Override
-	public Channel parse(InputStream stream, Date pubDate) throws RSSFeedParserException {
+	public Channel parse(InputStream stream, User user, Date pubDate) throws RSSFeedParserException {
 		
-		return parse(stream);
+		return parse(stream, user);
 	}
 }

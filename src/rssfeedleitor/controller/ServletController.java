@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import rssfeedleitor.bo.UserBO;
-import rssfeedleitor.model.User;
+import rssfeedleitor.user.bo.UserBO;
+import rssfeedleitor.user.model.User;
 
 import com.google.appengine.api.users.UserServiceFactory;
 

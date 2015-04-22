@@ -11,15 +11,20 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import rssfeedleitor.dao.CategoryDAO;
-import rssfeedleitor.dao.ChannelDAO;
-import rssfeedleitor.dao.FeedDAO;
+import rssfeedleitor.category.bo.CategoryBO;
+import rssfeedleitor.category.model.Category;
+import rssfeedleitor.channel.bo.ChannelBO;
+import rssfeedleitor.channel.model.Channel;
+import rssfeedleitor.exception.CategoryException;
+import rssfeedleitor.exception.ChannelException;
+import rssfeedleitor.exception.UserException;
+import rssfeedleitor.feed.bo.FeedBO;
+import rssfeedleitor.feed.model.Feed;
 import rssfeedleitor.guice.AppModule;
-import rssfeedleitor.model.Category;
-import rssfeedleitor.model.Channel;
-import rssfeedleitor.model.Feed;
 import rssfeedleitor.reader.RSSFeed;
 import rssfeedleitor.reader.RSSFeedParserException;
+import rssfeedleitor.user.bo.UserBO;
+import rssfeedleitor.user.model.User;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -32,13 +37,18 @@ public class RSSFeedParserTest extends DBUnitLoad {
 	static RSSFeed rssFeed;
 	
 	@Inject
-	static CategoryDAO categoryDAO;
+	static CategoryBO categoryBO;
 	
 	@Inject
-	static ChannelDAO channelDAO;
+	static ChannelBO channelBO;
 	
 	@Inject
-	static FeedDAO feedDAO;
+	static FeedBO feedBO;
+	
+	@Inject
+	static UserBO userBO;
+	
+	static User user;
 	
 	final static String dataSet = "/RSSFeedParserDataset.xml";
 	
@@ -50,46 +60,36 @@ public class RSSFeedParserTest extends DBUnitLoad {
 		
 		rssFeed = injector.getInstance(RSSFeed.class);
 		
-		categoryDAO = injector.getInstance(CategoryDAO.class);
-		channelDAO = injector.getInstance(ChannelDAO.class);
-		feedDAO = injector.getInstance(FeedDAO.class);
-		
+		categoryBO = injector.getInstance(CategoryBO.class);
+		channelBO = injector.getInstance(ChannelBO.class);
+		feedBO = injector.getInstance(FeedBO.class);
+		userBO = injector.getInstance(UserBO.class);
 		
 	}
 
 	@Test
-	public void insert(){
-		categoryDAO.insert(Category.newDefault());
-	}
-	
-	@Test
-	public void parse() throws IOException, RSSFeedParserException{
+	public void parse() throws IOException, RSSFeedParserException, CategoryException, UserException, ChannelException{
+		
+		user = userBO.createsNotExist(new User("user1@user.com"));
 		
 		try(FileInputStream stream = new FileInputStream(getClass().getResource("/rssfeed-local.xml").getFile())){
 			
-			Category category = categoryDAO.findById(1);
+			Channel channel = rssFeed.parse(stream, user);
 			
-			Channel channel = rssFeed.parse(stream);
-			channel.setCategory(category);
-			
-			channelDAO.insert(channel);
-			
-			for(Feed feed : channel.getFeeds()){
-				feedDAO.insert(feed);
-			}
-			
+			channelBO.insert(channel, user);
+		
 		}
 		
 	}
 	
 	@Test
-	public void results(){
+	public void results() throws CategoryException{
 		
-		Category category = categoryDAO.findById(1);
+		Category category = categoryBO.findById(1, user);
 		
 		Assert.assertEquals(Category.DEFAULT, category.getTitle());
 		
-		Channel channel = channelDAO.findById(1);
+		Channel channel = channelBO.findById(1, user);
 		
 		Assert.assertEquals("Teste do RSSFeedParser", channel.getTitle());
 		Assert.assertEquals("http://github.com/hwinckler", channel.getLink());

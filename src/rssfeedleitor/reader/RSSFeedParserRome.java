@@ -9,8 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import rssfeedleitor.model.Channel;
-import rssfeedleitor.model.Feed;
+import rssfeedleitor.channel.model.Channel;
+import rssfeedleitor.feed.model.Feed;
+import rssfeedleitor.user.model.User;
 
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -23,13 +24,13 @@ public class RSSFeedParserRome implements RSSFeed{
 	private static final Logger logger = LoggerFactory.getLogger(RSSFeedParserRome.class);
 
 	@Override
-	public Channel parse(InputStream stream)throws RSSFeedParserException {
+	public Channel parse(InputStream stream, User user)throws RSSFeedParserException {
 
-		return parse(stream, null);
+		return parse(stream, user, null);
 	}
 
 	@Override
-	public Channel parse(InputStream stream, Date pubDate)throws RSSFeedParserException {
+	public Channel parse(InputStream stream, User user, Date pubDate)throws RSSFeedParserException {
 
 		Channel channel = null;
 		
@@ -38,12 +39,12 @@ public class RSSFeedParserRome implements RSSFeed{
 			SyndFeed feed = new SyndFeedInput().build(new XmlReader(stream));
 			
 			if(feed != null){
-				channel = new Channel(feed.getTitle(), feed.getDescription(), feed.getUri(), new Date());
+				channel = new Channel(feed.getTitle(), feed.getDescription(), (feed.getLink() != null) ? feed.getLink(): feed.getUri(), new Date());
 				
 				List<SyndEntry> entries = feed.getEntries();
 				for (SyndEntry entry : entries) {
 					if(pubDate == null || (pubDate != null && entry.getPublishedDate().after(pubDate))){
-						channel.getFeeds().add(new Feed(channel, entry.getTitle(), (entry.getDescription() != null) ? StringUtils.abbreviate(entry.getDescription().getValue().replaceAll("\\<.*?\\>", ""), Feed.MAX_DESCRIPTION) : "", entry.getPublishedDate(), entry.getLink(), false));
+						channel.getFeeds().add(new Feed(user, channel, entry.getTitle(), (entry.getDescription() != null) ? StringUtils.abbreviate(entry.getDescription().getValue().replaceAll("\\<.*?\\>", ""), Feed.MAX_DESCRIPTION) : "", entry.getPublishedDate(), entry.getLink(), false));
 					}
 				}
 			}
