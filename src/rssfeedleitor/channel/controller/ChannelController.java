@@ -59,15 +59,21 @@ public class ChannelController extends ServletController {
 				
 				logger.debug("link: " + channel.getLink() + " lastPubDate: " + channel.getLastPubDate());
 				
-				if((feeds = (rssFeed.parse(new ChannelStream().getStream(channel.getLink()), user, channel.getLastPubDate())).getFeeds()).size() > 0){
-					
-					for (Feed feed : feeds) {
-						feed.setChannel(channel);
+				try{
+
+					if((feeds = (rssFeed.parse(new ChannelStream().getStream(channel.getLink()), user, channel.getLastPubDate())).getFeeds()).size() > 0){
 						
-						logger.debug("title: " + feed.getTitle() + " pubDate: " + feed.getPubDate());
-						feedBO.insert(feed);
-						countUnRead++;
+						for (Feed feed : feeds) {
+							feed.setChannel(channel);
+							
+							logger.debug("title: " + feed.getTitle() + " pubDate: " + feed.getPubDate());
+							feedBO.insert(feed);
+							countUnRead++;
+						}
 					}
+				}
+				catch(Exception e){
+					logger.error("synchronize", e);
 				}
 				
 			}
