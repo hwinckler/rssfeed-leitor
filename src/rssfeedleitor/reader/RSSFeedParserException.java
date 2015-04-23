@@ -8,4 +8,8 @@ public class RSSFeedParserException extends Exception {
 		super(e);
 	}
 
+	public RSSFeedParserException(String string) {
+		super(string);
+	}
+
 }

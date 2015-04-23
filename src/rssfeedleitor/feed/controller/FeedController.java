@@ -183,10 +183,11 @@ public class FeedController extends ServletController {
 		logger.debug("parse()...");
 		
 		Channel channel = null;
+		String link =  "";
 		
 		try{
 			
-			String link = ((request.getParameter("link") != null) ? request.getParameter("link") : "");
+			link = ((request.getParameter("link") != null) ? request.getParameter("link") : "");
 			
 			logger.debug("link = " + link);
 			
@@ -204,7 +205,7 @@ public class FeedController extends ServletController {
 		
 		try {
 			
-			json.put("link", (channel != null) ? channel.getLink() : "");
+			json.put("link", link);
 			json.put("title", (channel != null) ? channel.getTitle() : "");
 			json.put("description", (channel != null) ? channel.getDescription() : "");
 			

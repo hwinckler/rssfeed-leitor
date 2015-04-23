@@ -76,29 +76,23 @@ public class ServletController extends HttpServlet {
 	}
 	
 	public User getUserLogged(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
-		HttpSession session = request.getSession();
-		
-		User user = (User) session.getAttribute("user");
-		if(user == null){
 
-			com.google.appengine.api.users.User currentUser = UserServiceFactory.getUserService().getCurrentUser();
-			if(currentUser == null){
-				forward("/signin.jsp", request, response);
-			}
-			else{
-				try {
-					user = userBO.createsNotExist(new User(currentUser.getEmail()));
-					session.setAttribute("user", user);
-					
-				} catch (Exception e) {
-					logger.error("getUserLogged", e);
-					throw new ServletException(e.getMessage());
-				}
-			}
-			
+		User user = null;
+	
+		com.google.appengine.api.users.User currentUser = UserServiceFactory.getUserService().getCurrentUser();
+		if(currentUser == null){
+			forward("/signin.jsp", request, response);
 		}
-		
+		else{
+			try {
+				user = userBO.createsNotExist(new User(currentUser.getEmail()));
+				
+			} catch (Exception e) {
+				logger.error("getUserLogged", e);
+				throw new ServletException(e.getMessage());
+			}
+		}
+			
 		return user;
 	}
 }

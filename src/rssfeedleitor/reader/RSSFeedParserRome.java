@@ -54,6 +54,15 @@ public class RSSFeedParserRome implements RSSFeed{
 
 			throw new RSSFeedParserException(e);
 		}
+		finally{
+			if(stream != null){
+				try {
+					stream.close();
+				} catch (IOException e) {
+					logger.error("stream.close()", e);
+				}
+			}
+		}
 		
 		return channel;
 	}

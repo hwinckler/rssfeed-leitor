@@ -65,8 +65,10 @@ public class UserBOImpl implements UserBO {
 			userDAO.insert(user);
 			
 			categoryBO.createDefaultCategory(user);
+			
+			return user;
 		}
-		return user;
+		return u;
 	}
 
 	private void validate(User user) throws UserException{
