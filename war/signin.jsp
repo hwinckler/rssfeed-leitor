@@ -29,12 +29,63 @@ location.href = "index";
 %>
 
   <div class="container">
-  
-  <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default ">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">FeedReader</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="signin.jsp">Home</a></li>
+            <li class=""><a href="about.jsp">About</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div><!--/.container-fluid -->
+    </nav>
+  
+      <div class="jumbotron">
+        <h1>RSSFeed-Leitor</h1>
+        <p class="lead">Simples leitor Web e Mobile de feed RSS... blá blá blá...</p>
+        <p><a class="btn btn-lg btn-success" href="<%= userService.createLoginURL(request.getRequestURI()) %>" role="button">Sign up today</a></p>
+      </div>  
+      
+      <div class="row marketing">
+        <div class="col-lg-6">
+          <h4>Categorias</h4>
+          <p>Crie categorias para melhor organizar os seus feed RSS.</p>
+          <p>Tela 1 do cadastro de categoria.</p>
+
+          <h4>Feed Rss</h4>
+          <p>Cadastre os feed RSS de seus sites favoritos e vincule-os a uma categoria.</p>
+          <p>Tela 1 do cadastro de feed.</p>
+
+        </div>
+
+        <div class="col-lg-6">
+          <h4>Web e Mobile</h4>
+          <p>Com um design simple e leve, acesse-o através do seu navegador ou dispositivo móvel.</p>
+
+          <h4>Telas</h4>
+          <p>Tela 1.</p>
+          <p>Tela 2.</p>
+
+        </div>
+      </div>      
+  
 	<br>
 	${erro}
 
+      <footer class="footer">
+        <p>&copy; Company 2015</p>
+      </footer>
 
   </div> <!-- /container -->
 

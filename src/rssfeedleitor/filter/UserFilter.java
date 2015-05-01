@@ -37,7 +37,7 @@ public class UserFilter implements Filter {
 
 		logger.debug("user authenticate: " + UserServiceFactory.getUserService().getCurrentUser());
 		
-		if(UserServiceFactory.getUserService().getCurrentUser() == null && !requestURI.contains("signin.jsp") && !requestURI.contains("login")){
+		if(UserServiceFactory.getUserService().getCurrentUser() == null && (!requestURI.contains("signin.jsp") && !requestURI.contains("about.jsp") && !requestURI.contains("login"))){
 			HttpServletResponse res = (HttpServletResponse) response;
 			logger.debug("redirect login.jsp...");
 			res.sendRedirect("signin.jsp");
