@@ -11,6 +11,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,19 +35,20 @@ public class UserFilter implements Filter {
 		
 		HttpServletRequest req = (HttpServletRequest) request;
 		String requestURI = req.getRequestURI();
+		HttpSession session = req.getSession();
+		
+		rssfeedleitor.user.model.User user = (rssfeedleitor.user.model.User) session.getAttribute("user"); 
 
 		logger.debug("user authenticate: " + UserServiceFactory.getUserService().getCurrentUser());
 		
-		if(UserServiceFactory.getUserService().getCurrentUser() == null && (!requestURI.contains("signin.jsp") && !requestURI.contains("about.jsp") && !requestURI.contains("login"))){
+		if(user == null && (!requestURI.contains("signin.jsp") && !requestURI.contains("about.jsp") && !requestURI.contains("login") && !requestURI.contains("logout") && !requestURI.contains("oauth2callback"))){
 			HttpServletResponse res = (HttpServletResponse) response;
 			logger.debug("redirect login.jsp...");
 			res.sendRedirect("signin.jsp");
 			return;
 		}
 		
-		User currentUser = UserServiceFactory.getUserService().getCurrentUser();
-		
-		logger.debug("user: " + ((currentUser != null) ? currentUser.getNickname() : ""));
+		logger.debug("user: " + ((user != null) ? user.getEmail() : ""));
 		
 		chain.doFilter(request, response);
 	}

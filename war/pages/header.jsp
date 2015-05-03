@@ -3,10 +3,6 @@
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%
-    UserService userService = UserServiceFactory.getUserService();
-%>    
-    
     <!-- Static navbar -->
     <nav class="navbar navbar-default ">
       <div class="container-fluid">
@@ -33,9 +29,20 @@
 
                   <a href="feed">Feed</a>
         
-          </li>          
-          <li><a href="<%= userService.createLogoutURL("/signin.jsp") %>"><%= userService.getCurrentUser().getNickname() %></a></li>
-            </ul>
+          </li>
+             <li>
+      
+				<div id="auth-display-img">
+					<img style='height:100%;' src='${sessionScope.user.picture}'/>
+				</div>
+				
+            </li>
+             <li>
+
+					<a href="logout">${sessionScope.user.email}</a>
+				
+            </li>            
+		</ul>
         </div><!--/.nav-collapse -->
       </div><!--/.container-fluid -->
     </nav>

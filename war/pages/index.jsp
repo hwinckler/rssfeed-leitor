@@ -8,6 +8,7 @@
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="css/normalize.css" rel="stylesheet" media="screen">
+  <link href="css/geral.css" rel="stylesheet" media="screen">
 
   <script src="js/global.js"></script>
   <script src="js/index.js"></script>

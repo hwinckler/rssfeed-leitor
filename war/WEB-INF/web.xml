@@ -2,6 +2,21 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>hello</display-name>
 
+  <context-param>
+    <param-name>CLIENT_ID</param-name>
+    <param-value>713453150046-9t00arnf7j730slt81gig1l3ie93cids.apps.googleusercontent.com</param-value>
+  </context-param> 
+  
+  <context-param>
+    <param-name>CLIENT_SECRET</param-name>
+    <param-value>1PVZIlbKE2BIPFPmkwjgm3ca</param-value>
+  </context-param>  
+  
+  <context-param>
+    <param-name>PERMISSIONS</param-name>
+    <param-value>https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile</param-value>
+  </context-param>   
+
   <filter>
     <filter-name>guiceFilter</filter-name>
     <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>

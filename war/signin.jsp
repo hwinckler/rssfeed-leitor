@@ -54,7 +54,7 @@ location.href = "index";
       <div class="jumbotron">
         <h1>RSSFeed-Leitor</h1>
         <p class="lead">Simples leitor Web e Mobile de feed RSS... blá blá blá...</p>
-        <p><a class="btn btn-lg btn-success" href="<%= userService.createLoginURL(request.getRequestURI()) %>" role="button">Sign up today</a></p>
+        <p><a href="login?act=login"><img alt="sign-in" src="img/Red-signin_Long_base_20dp.png"></a></p>
       </div>  
       
       <div class="row marketing">

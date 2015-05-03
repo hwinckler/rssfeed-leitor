@@ -3,6 +3,8 @@ package rssfeedleitor.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -10,15 +12,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import rssfeedleitor.user.bo.UserBO;
 import rssfeedleitor.user.model.User;
-
-import com.google.appengine.api.users.UserServiceFactory;
 
 @Singleton
 public class ServletController extends HttpServlet {
@@ -27,8 +26,7 @@ public class ServletController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-	private UserBO userBO;
+	private final String OAUTH_CALLBACK = "/oauth2callback";
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("doGet()...");
@@ -62,6 +60,12 @@ public class ServletController extends HttpServlet {
 		
 		getServletContext().getRequestDispatcher("/pages" + path).forward(request,response);
 	} 
+	
+	protected void redirect(String url, HttpServletResponse response) throws ServletException, IOException {
+		logger.debug("redirect()...");
+		
+		response.sendRedirect(url);
+	}
 
 	protected void printStackTraceToString(Exception e, HttpServletRequest request) throws ServletException, IOException {
 		logger.debug("printStackTraceToString()...");
@@ -76,23 +80,13 @@ public class ServletController extends HttpServlet {
 	}
 	
 	public User getUserLogged(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-
-		User user = null;
-	
-		com.google.appengine.api.users.User currentUser = UserServiceFactory.getUserService().getCurrentUser();
-		if(currentUser == null){
-			forward("/signin.jsp", request, response);
-		}
-		else{
-			try {
-				user = userBO.createsNotExist(new User(currentUser.getEmail()));
-				
-			} catch (Exception e) {
-				logger.error("getUserLogged", e);
-				throw new ServletException(e.getMessage());
-			}
-		}
 			
-		return user;
+		return (User) request.getSession().getAttribute("user");
+	}
+	
+	protected String getCallbackURL(HttpServletRequest request) throws UnsupportedEncodingException{
+		
+        return URLEncoder.encode((request.getRequestURL().replace(request.getRequestURL().lastIndexOf("/"), request.getRequestURL().length(), "").append(OAUTH_CALLBACK)).toString(), "UTF-8");
+		
 	}
 }

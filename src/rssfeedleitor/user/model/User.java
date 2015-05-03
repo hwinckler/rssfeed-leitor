@@ -8,8 +8,10 @@ public class User implements Serializable{
 	private Integer id;
 	private String email;
 	private Date date;
+	private String picture;
 	
 	public User() {
+
 	}
 	
 	public User(String email){
@@ -39,5 +41,13 @@ public class User implements Serializable{
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getPicture() {
+		return picture;
+	}
+	
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 }
