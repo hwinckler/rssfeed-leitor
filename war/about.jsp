@@ -51,10 +51,11 @@
       		<li>Google Guice - Lightweight dependency injection (DI) framework for Java.</li>
       		<li>MyBatis - Persistence framework.</li>
       		<li>JUnit - Simple framework to write repeatable tests.</li>
+      		<li>Rome - RSS and Atom utilities for Java.</li>
       		<li>DBUnit - JUnit extension targeted at database-driven projects.</li>
+      		<li>Google+ Sign-In.</li>
       		<li>Git - Version control system.</li>
       		<li>Github - Online project hosting using Git.</li>
-      		<li>Rome - RSS and Atom utilities for Java.</li>
       	</ul>
       </div>
       

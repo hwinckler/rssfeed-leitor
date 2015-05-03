@@ -26,7 +26,27 @@
 
     <div class="jumbotron">
       <h1>RSSFeed Leitor v.1</h1>
-      <p class="navbar-right"><a class="navbar-brand" href="https://github.com/hwinckler/rssfeed-leitor.git" target="_blank">https://github.com/hwinckler/rssfeed-leitor.git</a></p>
+      <p class="lead">Projeto de estudo para as tecnologias:</p>
+      <div>
+      	<ul>
+      		<li>Bootstrap - HTML, CSS, and JS framework for developing responsive, mobile first.</li>
+      		<li>Google Guice - Lightweight dependency injection (DI) framework for Java.</li>
+      		<li>MyBatis - Persistence framework.</li>
+      		<li>JUnit - Simple framework to write repeatable tests.</li>
+      		<li>Rome - RSS and Atom utilities for Java.</li>
+      		<li>DBUnit - JUnit extension targeted at database-driven projects.</li>
+      		<li>Google+ Sign-In.</li>
+      		<li>Git - Version control system.</li>
+      		<li>Github - Online project hosting using Git.</li>
+      	</ul>
+      </div>
+      
+      <p class="lead">Colabore com o projeto em:</p>
+      <div>
+      	<ul>
+      		<li><a href="https://github.com/hwinckler/rssfeed-leitor.git" target="_blank">https://github.com/hwinckler/rssfeed-leitor.git</a></li>
+      	</ul>
+      </div>
     </div>
 
   </div> <!-- /container -->
